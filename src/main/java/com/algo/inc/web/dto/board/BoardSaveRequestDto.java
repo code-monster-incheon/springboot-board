@@ -13,8 +13,12 @@ public class BoardSaveRequestDto {
 
     private String title;
     private String content;
+
     public Board toEntity(BoardSaveRequestDto dto)
     {
-        return Boar
+        return Board.builder()
+                .content(dto.getContent())
+                .title(dto.getTitle())
+                .build();
     }
 }

@@ -19,13 +19,13 @@ public class Member extends BaseTimeEntity {
 
     @Id
     private String id;
-    private String account;
+    private String name;
     private String email;
     private String sex;
     private String password;
     private String phoneNumber;
     private String isAuthEmail;
-    private boolean enables;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     private Role role;

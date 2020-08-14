@@ -1,10 +1,13 @@
 package com.algo.inc.web.controller;
 
+import com.algo.inc.domain.board.Board;
 import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.board.BoardSaveRequestDto;
 import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
 import com.algo.inc.web.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -15,10 +18,10 @@ public class BoardApiController {
     private final BoardService boardService;
 
 
-    @PutMapping("/{id}")
-    public Long update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto updateRequestDto)
+    @GetMapping("/{id}")
+    public BoardResponseDto findById(@PathVariable Long id)
     {
-        return boardService.update(id, updateRequestDto);
+        return boardService.findById(id);
     }
 
     @PostMapping
@@ -26,9 +29,18 @@ public class BoardApiController {
     {
         boardService.registerBoard(boardSaveRequestDto);
     }
-    @GetMapping("/{id}")
-    public BoardResponseDto findById(@PathVariable Long id)
+
+    @PutMapping()
+    public void updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto)
     {
-        return boardService.findById(id);
+        boardService.updateBaord(boardUpdateRequestDto);
+    }
+
+    @GetMapping("/getBoardList")
+    public String getBoardList(Model model)
+    {
+        Page<Board> boardList = boardService.getBoardList();
+        model.addAttribute("boardList", boardList);
+        return "board/getBoardList";
     }
 }

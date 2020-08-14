@@ -1,0 +1,33 @@
+<http xmlns:th ="http://www.thymeleaf.org">
+    <head>
+        <title>게시글 목록</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body th:align="center">
+        <h1>게시글 목록</h1>
+
+        <a th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;
+        <a th:href="@{/admin/adminPage}">게시판 관리</a>
+
+        <hr>
+
+        <table th:align="center" border="1" th:cellspacing="0" th:cellpadding="0" th:width="700">
+            <tr>
+                <th bgcolor="aqua" width="50">번호</th>
+                <th bgcolor="aqua" width="400">제목</th>
+                <th bgcolor="aqua" width="100">작성자</th>
+                <th bgcolor="aqua" width="100">등록일</th>
+                <th bgcolor="aqua" width="50">조회수</th>
+            </tr>
+
+            <tr th:each="board, state : ${boardList}">
+                <td th:text ="${state.count}" th:align="center">
+                <td><a th:href="@{/board/getBoard(id = ${board.id})}" th:text="${board.title}"></a></td>
+                <td th:text="${board.member.name}" th:align="center">
+                    <td th:text="${board.regDt}" th:align="center">
+            </tr>
+            <td>
+        </table>
+    </body>
+
+</http>
