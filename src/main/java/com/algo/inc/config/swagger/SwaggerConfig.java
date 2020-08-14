@@ -1,4 +1,4 @@
-package com.algo.inc.config;
+package com.algo.inc.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

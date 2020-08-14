@@ -2,7 +2,7 @@ package com.algo.inc.domain.reply;
 
 import com.algo.inc.domain.BaseTimeEntity;
 import com.algo.inc.domain.board.Board;
-import com.algo.inc.domain.user.User;
+import com.algo.inc.domain.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@ToString(exclude = {"board", "user"})
+@ToString(exclude = {"board", "member"})
 public class Reply extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,6 @@ public class Reply extends BaseTimeEntity {
     @ManyToOne
     private Board board;
     @ManyToOne
-    private User user;
+    private Member member;
 
 }

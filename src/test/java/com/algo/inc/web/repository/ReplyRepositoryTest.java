@@ -2,7 +2,7 @@ package com.algo.inc.web.repository;
 
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.reply.Reply;
-import com.algo.inc.domain.user.User;
+import com.algo.inc.domain.member.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +21,30 @@ public class ReplyRepositoryTest {
     private BoardRepository boardRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
     private ReplyRepository replyRepository;
 
     @Test
     public void replyTest(){
-        User user1 = new User();
+        Member member1 = new Member();
         Board board = new Board();
 
-        user1.setAccount("김종범");
-        userRepository.save(user1);
+        member1.setAccount("김종범");
+        memberRepository.save(member1);
 
-        board.setUser(user1);
+        board.setMember(member1);
         board.setTitle("QWQQEQWEQWEEQW");
         boardRepository.save(board);
 String name ="DDDD";
-        User newUser = new User();
-        newUser.setAccount(name);
-        userRepository.save(newUser);
+        Member newMember = new Member();
+        newMember.setAccount(name);
+        memberRepository.save(newMember);
         Reply reply = new Reply();
         reply.setBoard(board);
 
-        reply.setUser(newUser);
+        reply.setMember(newMember);
         replyRepository.save(reply);
         List<Reply> r = replyRepository.findAll();
 
@@ -52,7 +52,7 @@ String name ="DDDD";
         Reply reply1 = replyRepository.findById(1L)
                 .orElseThrow(()-> new IllegalArgumentException("없음"));
 
-        assertThat(reply1.getUser().getAccount()).isEqualTo(name);
+        assertThat(reply1.getMember().getAccount()).isEqualTo(name);
 
 
     }

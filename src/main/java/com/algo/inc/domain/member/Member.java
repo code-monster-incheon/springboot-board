@@ -1,13 +1,13 @@
-package com.algo.inc.domain.user;
+package com.algo.inc.domain.member;
 
 
 import com.algo.inc.domain.BaseTimeEntity;
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.reply.Reply;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -15,11 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @ToString(exclude = {"boardList", "replyList"})
-public class User extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String account;
     private String email;
     private String sex;
@@ -28,10 +27,13 @@ public class User extends BaseTimeEntity {
     private String isAuthEmail;
     private boolean enables;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Board> boardList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Reply> replyList;
 
 }

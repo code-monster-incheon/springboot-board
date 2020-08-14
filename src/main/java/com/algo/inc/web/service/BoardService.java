@@ -17,6 +17,10 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    public void insertBoard(BoardSaveRequestDto board)
+    {
+        boardRepository.save(board);
+    }
     @Transactional
     public Long update(Long id, BoardUpdateRequestDto updateRequestDto)
     {

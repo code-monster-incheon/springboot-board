@@ -13,6 +13,8 @@ public class BoardSaveRequestDto {
 
     private String title;
     private String content;
-
-
+    public Board toEntity(BoardSaveRequestDto dto)
+    {
+        return Boar
+    }
 }
