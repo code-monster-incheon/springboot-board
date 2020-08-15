@@ -19,14 +19,13 @@ public class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
-
     @Autowired
     private MemberRepository memberRepository;
-
     @Autowired
     private ReplyRepository replyRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Test
     public void init()
     {

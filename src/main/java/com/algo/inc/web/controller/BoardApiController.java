@@ -17,7 +17,6 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-
     @GetMapping("/{id}")
     public BoardResponseDto findById(@PathVariable Long id)
     {
@@ -36,11 +35,11 @@ public class BoardApiController {
         boardService.updateBaord(boardUpdateRequestDto);
     }
 
-    @GetMapping("/getBoardList")
-    public String getBoardList(Model model)
-    {
-        Page<Board> boardList = boardService.getBoardList();
-        model.addAttribute("boardList", boardList);
-        return "board/getBoardList";
-    }
+//    @GetMapping("/getBoardList")
+//    public String getBoardList(Model model)
+//    {
+//        Page<Board> boardList = boardService.getBoardList();
+//        model.addAttribute("boardList", boardList);
+//        return "board/getBoardList";
+//    }
 }
