@@ -1,28 +1,58 @@
 buildscript {
     ext{
         springBootVersion = '2.1.7.RELEASE'
+        queryDslPluginVersion = '1.0.9'
+
     }
     repositories {
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" } // plugin 저장소
     }
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE"
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${queryDslPluginVersion}")
     }
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-
 group 'com.algo.incheon'
 version '1.0-SNAPSHOT'
+// querydsl 적용
+apply plugin: "com.ewerk.gradle.plugins.querydsl" // Plugin 적용
 sourceCompatibility = 1.8
+def querydslSrcDir = 'src/main/java/generated'
+
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslSrcDir]
+        }
+    }
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
 
 repositories {
     mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" } // plugin 저장소
 }
-
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.4.0'
@@ -32,6 +62,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
+    compile("com.querydsl:querydsl-jpa") // querydsl
+    compile("com.querydsl:querydsl-apt") // querydsl
+
+    // 1. Use Guava in your implementation only:
+    implementation("com.google.guava:guava:29.0-jre")
+
+    testCompile('org.springframework.security:spring-security-test')
+    implementation 'com.querydsl:querydsl-jpa'
     compile('org.projectlombok:lombok')
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'

@@ -21,23 +21,26 @@ public class Board extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     // 다대일
     @ManyToOne
-    @JoinColumn(name="member_id")
+    @JoinColumn(name="member_id", nullable = false)
     private Member member;
-    private String password;
-    private int view;
+
+    @Column(updatable = false)
+    private int view = 0;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.ALL)
     private List<Reply> replyList;
 
     @Builder
-    public Board(String title, String content)
+    public Board(String title, String content, Member member)
     {
         this.title = title;
         this.content =content;
+        this.member = member;
     }
 
 }
