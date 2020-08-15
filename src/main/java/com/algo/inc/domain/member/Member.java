@@ -18,6 +18,7 @@ import java.util.List;
 public class Member extends BaseTimeEntity {
 
     @Id
+    private Long seq;
     private String id;
     private String name;
     private String email;

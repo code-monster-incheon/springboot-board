@@ -1,6 +1,7 @@
 package com.algo.inc.web.service;
 
 import com.algo.inc.domain.board.Board;
+import com.algo.inc.web.dto.board.BoardResDto;
 import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.board.BoardSaveRequestDto;
 import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
@@ -61,5 +62,15 @@ public class BoardService {
 
     public Board getBoard(Board board) {
         return boardRepository.findById(board.getId()).get();
+    }
+
+    public BoardResDto getBoardById(Long id) {
+        System.out.println("getBoardBy");
+        Board board = boardRepository.findById(id).get();
+
+        BoardResDto dto =new BoardResDto();
+        dto.setContent(board.getContent());
+        dto.setTitle(board.getTitle());
+        return dto;
     }
 }
