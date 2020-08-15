@@ -32,6 +32,7 @@ public class BoardService {
 
     public void registerBoard(BoardSaveRequestDto boardSaveRequestDto) {
         Board board = new Board();
+        // ㅎㅁㅎㅁ
         board.setTitle(boardSaveRequestDto.getTitle());
         board.setContent(boardSaveRequestDto.getContent());
         board.setView(boardSaveRequestDto.getView());
