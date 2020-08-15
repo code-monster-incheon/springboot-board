@@ -25,11 +25,12 @@ public class Board extends BaseTimeEntity {
 
     // 다대일
     @ManyToOne
+    @JoinColumn(name="member_id")
     private Member member;
     private String password;
     private int view;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.ALL)
     private List<Reply> replyList;
 
     @Builder
