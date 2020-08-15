@@ -17,18 +17,21 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
+    // Read
     @GetMapping("/{id}")
     public BoardResponseDto findById(@PathVariable Long id)
     {
         return boardService.findById(id);
     }
 
+    // Create
     @PostMapping
     public void registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto)
     {
         boardService.registerBoard(boardSaveRequestDto);
     }
 
+    // Update
     @PutMapping()
     public void updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto)
     {

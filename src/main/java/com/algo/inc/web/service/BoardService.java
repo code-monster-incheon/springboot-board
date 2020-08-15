@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -31,9 +30,12 @@ public class BoardService {
         return new BoardResponseDto(entity);
     }
 
-    public void registerBoard(BoardSaveRequestDto board)
-    {
-        boardRepository.save(board.toEntity(board));
+    public void registerBoard(BoardSaveRequestDto boardSaveRequestDto) {
+        Board board = new Board();
+        board.setTitle(boardSaveRequestDto.getTitle());
+        board.setContent(boardSaveRequestDto.getContent());
+        board.setView(boardSaveRequestDto.getView());
+        boardRepository.save(board);
     }
 
     public void updateBaord(BoardUpdateRequestDto boardUpdateRequestDto)
