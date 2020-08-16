@@ -68,7 +68,7 @@ public class BoardRepositoryTest {
             String title = "칼럼 " + i;
 
             member.setBoardList(Lists.newArrayList(
-                Board.builder().title(title).content("content" + i).member(member).build(),
+                    Board.builder().title(title).content("content" + i).member(member).build(),
                     Board.builder().title(title).content("content" + i).member(member).build(),
                     Board.builder().title(title).content("content" + i).member(member).build(),
                     Board.builder().title(title).content("content" + i).member(member).build()
