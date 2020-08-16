@@ -46,7 +46,6 @@ public class BoardService {
     {
         Optional<Board> board = boardRepository.findById(boardUpdateRequestDto.getId());
 
-
         board.ifPresent(b->
             boardRepository.save(Board.builder()
                     .content(b.getContent())
