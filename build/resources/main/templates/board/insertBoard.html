@@ -7,7 +7,7 @@
 <body th:align="center">
 <h1>게시글 등록</h1>
 
-<form th:action="@{/board/insertBoard}" method="post">
+<form th:action="@{/view/board/insertBoard}" method="post">
     <table th:align="center" border="1" th:cellspacing="0" th:cellpadding="0">
 
         <tr>
@@ -34,6 +34,6 @@
     </table>
 </form>
 
-<a th:href="@{/board/getBoardList}">글 목록</a>
+<a th:href="@{/view/board/getBoardList}">글 목록</a>
 </body>
 </html>

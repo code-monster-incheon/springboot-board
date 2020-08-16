@@ -5,9 +5,11 @@ import com.algo.inc.domain.BaseTimeEntity;
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.reply.Reply;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -15,10 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @ToString(exclude = {"boardList", "replyList"})
+@Accessors(chain = true)
 public class Member extends BaseTimeEntity {
 
     @Id
-    private Long seq;
     private String id;
     private String name;
     private String email;
@@ -37,4 +39,12 @@ public class Member extends BaseTimeEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Reply> replyList;
 
+    @Builder
+    public Member(String id, String name, String password, Role role)
+    {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
 }

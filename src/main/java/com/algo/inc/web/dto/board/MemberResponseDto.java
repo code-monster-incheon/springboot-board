@@ -8,5 +8,4 @@ import lombok.Setter;
 public class MemberResponseDto {
     private String id;
     private String name;
-
 }

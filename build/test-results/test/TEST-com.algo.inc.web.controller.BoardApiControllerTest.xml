@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.algo.inc.web.controller.BoardApiControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-08-16T13:21:31" hostname="Sanghyunui-iMac.local" time="0.275">
+  <properties/>
+  <testcase name="게시글_생성_테스트" classname="com.algo.inc.web.controller.BoardApiControllerTest" time="0.229"/>
+  <testcase name="게시글_생성_후_전체_게시글_조회를_하면_마지막_게시글_조회가_되어야_된다" classname="com.algo.inc.web.controller.BoardApiControllerTest" time="0.045"/>
+  <system-out><![CDATA[22:21:26.555 [Test worker] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.560 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+22:21:26.566 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+22:21:26.584 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.algo.inc.web.controller.BoardApiControllerTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+22:21:26.592 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.algo.inc.web.controller.BoardApiControllerTest], using SpringBootContextLoader
+22:21:26.595 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.algo.inc.web.controller.BoardApiControllerTest]: class path resource [com/algo/inc/web/controller/BoardApiControllerTest-context.xml] does not exist
+22:21:26.595 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.algo.inc.web.controller.BoardApiControllerTest]: class path resource [com/algo/inc/web/controller/BoardApiControllerTestContext.groovy] does not exist
+22:21:26.595 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.algo.inc.web.controller.BoardApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+22:21:26.596 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.algo.inc.web.controller.BoardApiControllerTest]: BoardApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:21:26.640 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.696 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/sanghyunyun/Documents/springboot-board/build/classes/java/main/com/algo/inc/Application.class]
+22:21:26.697 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.algo.inc.Application for test class com.algo.inc.web.controller.BoardApiControllerTest
+22:21:26.775 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.algo.inc.web.controller.BoardApiControllerTest]: using defaults.
+22:21:26.776 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+22:21:26.788 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@51dd3521, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@68fb5d9f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6f43362f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@78b4232f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@40f87525, org.springframework.test.context.transaction.TransactionalTestExecutionListener@72dddf00, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4d97d3a, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@5d2d8bd5, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@5e7f8c08, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@42467d18, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@db9e8c7, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@3cfba986, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1e466ddd, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6f997db0]
+22:21:26.791 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.791 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.792 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.792 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.793 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.793 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.796 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@579d1f41 testClass = BoardApiControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@640b77a3 testClass = BoardApiControllerTest, locations = '{}', classes = '{class com.algo.inc.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@e7e8512, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5e6828a0, [ImportsContextCustomizer@4bb15d76 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a90e842, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6dfb2058, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@47e50488], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+22:21:26.796 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.796 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.algo.inc.web.controller.BoardApiControllerTest]
+22:21:26.810 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.7.RELEASE)
+
+2020-08-16 22:21:27.004  INFO 3695 --- [    Test worker] c.a.i.w.c.BoardApiControllerTest         : Starting BoardApiControllerTest on Sanghyunui-iMac.local with PID 3695 (started by sanghyunyun in /Users/sanghyunyun/Documents/springboot-board)
+2020-08-16 22:21:27.006  INFO 3695 --- [    Test worker] c.a.i.w.c.BoardApiControllerTest         : No active profile set, falling back to default profiles: default
+2020-08-16 22:21:27.779  INFO 3695 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-08-16 22:21:27.840  INFO 3695 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56ms. Found 3 repository interfaces.
+2020-08-16 22:21:28.222  INFO 3695 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$64d1e868] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-08-16 22:21:28.258  INFO 3695 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$fd7fb0a2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-08-16 22:21:28.264  INFO 3695 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-08-16 22:21:28.265  INFO 3695 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2b7f3d26' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-08-16 22:21:28.270  INFO 3695 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityConfigurer' of type [com.algo.inc.config.security.MethodSecurityConfigurer$$EnhancerBySpringCGLIB$$605b4cda] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-08-16 22:21:28.276  INFO 3695 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-08-16 22:21:28.475  INFO 3695 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-08-16 22:21:28.521  INFO 3695 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.10.Final}
+2020-08-16 22:21:28.522  INFO 3695 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2020-08-16 22:21:28.638  INFO 3695 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-08-16 22:21:28.747  INFO 3695 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-08-16 22:21:28.749  WARN 3695 --- [    Test worker] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2020-08-16 22:21:28.863  INFO 3695 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-08-16 22:21:28.874  INFO 3695 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2020-08-16 22:21:29.480  INFO 3695 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-08-16 22:21:29.872  INFO 3695 --- [    Test worker] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2020-08-16 22:21:30.273  WARN 3695 --- [    Test worker] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-08-16 22:21:30.522  INFO 3695 --- [    Test worker] c.a.inc.config.security.SecurityConfig   : security configure method
+2020-08-16 22:21:30.603  INFO 3695 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3392651a, org.springframework.security.web.context.SecurityContextPersistenceFilter@43d72205, org.springframework.security.web.header.HeaderWriterFilter@363b5b71, org.springframework.security.web.authentication.logout.LogoutFilter@330cd3a7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@581733ac, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c827b2b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76ecfb83, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b754052, org.springframework.security.web.session.SessionManagementFilter@8b9a91f, org.springframework.security.web.access.ExceptionTranslationFilter@7cc2033, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@605c22c9]
+2020-08-16 22:21:30.638  INFO 3695 --- [    Test worker] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-08-16 22:21:30.999  INFO 3695 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-08-16 22:21:31.039  INFO 3695 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-08-16 22:21:31.554  INFO 3695 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2020-08-16 22:21:31.554  INFO 3695 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2020-08-16 22:21:31.565  INFO 3695 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 11 ms
+2020-08-16 22:21:31.583  INFO 3695 --- [    Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-08-16 22:21:31.594  INFO 3695 --- [    Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-08-16 22:21:31.619  INFO 3695 --- [    Test worker] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-08-16 22:21:31.716  INFO 3695 --- [    Test worker] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByIdUsingGET_1
+2020-08-16 22:21:31.734  INFO 3695 --- [    Test worker] c.a.i.w.c.BoardApiControllerTest         : Started BoardApiControllerTest in 4.916 seconds (JVM running for 5.633)
+2020-08-16 22:21:31.755  INFO 3695 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@579d1f41 testClass = BoardApiControllerTest, testInstance = com.algo.inc.web.controller.BoardApiControllerTest@6248bb36, testMethod = 게시글_생성_테스트@BoardApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@640b77a3 testClass = BoardApiControllerTest, locations = '{}', classes = '{class com.algo.inc.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@e7e8512, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5e6828a0, [ImportsContextCustomizer@4bb15d76 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a90e842, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6dfb2058, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@47e50488], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@574abb10]; rollback [true]
+Hibernate: select member0_.id as id1_1_1_, member0_.chg_dt as chg_dt2_1_1_, member0_.reg_dt as reg_dt3_1_1_, member0_.email as email4_1_1_, member0_.enabled as enabled5_1_1_, member0_.is_auth_email as is_auth_6_1_1_, member0_.name as name7_1_1_, member0_.password as password8_1_1_, member0_.phone_number as phone_nu9_1_1_, member0_.role as role10_1_1_, member0_.sex as sex11_1_1_, boardlist1_.member_id as member_i7_0_3_, boardlist1_.id as id1_0_3_, boardlist1_.id as id1_0_0_, boardlist1_.chg_dt as chg_dt2_0_0_, boardlist1_.reg_dt as reg_dt3_0_0_, boardlist1_.content as content4_0_0_, boardlist1_.member_id as member_i7_0_0_, boardlist1_.title as title5_0_0_, boardlist1_.view as view6_0_0_ from member member0_ left outer join board boardlist1_ on member0_.id=boardlist1_.member_id where member0_.id=?
+Hibernate: insert into member (chg_dt, reg_dt, email, enabled, is_auth_email, name, password, phone_number, role, sex, id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into board (chg_dt, reg_dt, content, member_id, title, view) values (?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/board
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = {"title":"스프링부트2.0","content":"스타트 스프링 부트2.0"}
+    Session Attrs = {SPRING_SECURITY_CONTEXT=org.springframework.security.core.context.SecurityContextImpl@f718ae67: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@f718ae67: Principal: org.springframework.security.core.userdetails.User@bf806f9d: Username: TestUser; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN,ROLE_MEMBER; Credentials: [PROTECTED]; Authenticated: true; Details: null; Granted Authorities: ROLE_ADMIN, ROLE_MEMBER}
+
+Handler:
+             Type = com.algo.inc.web.controller.api.board.BoardApiController
+           Method = public java.lang.Long com.algo.inc.web.controller.api.board.BoardApiController.registerBoard(com.algo.inc.web.dto.board.BoardSaveRequestDto,org.springframework.security.core.Authentication)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json;charset=UTF-8
+             Body = 147
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2020-08-16 22:21:31.976  INFO 3695 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@579d1f41 testClass = BoardApiControllerTest, testInstance = com.algo.inc.web.controller.BoardApiControllerTest@6248bb36, testMethod = 게시글_생성_테스트@BoardApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@640b77a3 testClass = BoardApiControllerTest, locations = '{}', classes = '{class com.algo.inc.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@e7e8512, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5e6828a0, [ImportsContextCustomizer@4bb15d76 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a90e842, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6dfb2058, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@47e50488], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true]]
+2020-08-16 22:21:31.978  INFO 3695 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@579d1f41 testClass = BoardApiControllerTest, testInstance = com.algo.inc.web.controller.BoardApiControllerTest@79688a50, testMethod = 게시글_생성_후_전체_게시글_조회를_하면_마지막_게시글_조회가_되어야_된다@BoardApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@640b77a3 testClass = BoardApiControllerTest, locations = '{}', classes = '{class com.algo.inc.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@e7e8512, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5e6828a0, [ImportsContextCustomizer@4bb15d76 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a90e842, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6dfb2058, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@47e50488], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@574abb10]; rollback [true]
+Hibernate: select member0_.id as id1_1_1_, member0_.chg_dt as chg_dt2_1_1_, member0_.reg_dt as reg_dt3_1_1_, member0_.email as email4_1_1_, member0_.enabled as enabled5_1_1_, member0_.is_auth_email as is_auth_6_1_1_, member0_.name as name7_1_1_, member0_.password as password8_1_1_, member0_.phone_number as phone_nu9_1_1_, member0_.role as role10_1_1_, member0_.sex as sex11_1_1_, boardlist1_.member_id as member_i7_0_3_, boardlist1_.id as id1_0_3_, boardlist1_.id as id1_0_0_, boardlist1_.chg_dt as chg_dt2_0_0_, boardlist1_.reg_dt as reg_dt3_0_0_, boardlist1_.content as content4_0_0_, boardlist1_.member_id as member_i7_0_0_, boardlist1_.title as title5_0_0_, boardlist1_.view as view6_0_0_ from member member0_ left outer join board boardlist1_ on member0_.id=boardlist1_.member_id where member0_.id=?
+Hibernate: insert into member (chg_dt, reg_dt, email, enabled, is_auth_email, name, password, phone_number, role, sex, id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into board (chg_dt, reg_dt, content, member_id, title, view) values (?, ?, ?, ?, ?, ?)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/board
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = {"title":"스프링부트2.0","content":"스타트 스프링 부트2.0"}
+    Session Attrs = {SPRING_SECURITY_CONTEXT=org.springframework.security.core.context.SecurityContextImpl@f718ae67: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@f718ae67: Principal: org.springframework.security.core.userdetails.User@bf806f9d: Username: TestUser; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN,ROLE_MEMBER; Credentials: [PROTECTED]; Authenticated: true; Details: null; Granted Authorities: ROLE_ADMIN, ROLE_MEMBER}
+
+Handler:
+             Type = com.algo.inc.web.controller.api.board.BoardApiController
+           Method = public java.lang.Long com.algo.inc.web.controller.api.board.BoardApiController.registerBoard(com.algo.inc.web.dto.board.BoardSaveRequestDto,org.springframework.security.core.Authentication)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json;charset=UTF-8
+             Body = 148
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+Hibernate: select board0_.id as id1_0_, board0_.chg_dt as chg_dt2_0_, board0_.reg_dt as reg_dt3_0_, board0_.content as content4_0_, board0_.member_id as member_i7_0_, board0_.title as title5_0_, board0_.view as view6_0_ from board board0_ order by board0_.id DESC
+Hibernate: select member0_.id as id1_1_0_, member0_.chg_dt as chg_dt2_1_0_, member0_.reg_dt as reg_dt3_1_0_, member0_.email as email4_1_0_, member0_.enabled as enabled5_1_0_, member0_.is_auth_email as is_auth_6_1_0_, member0_.name as name7_1_0_, member0_.password as password8_1_0_, member0_.phone_number as phone_nu9_1_0_, member0_.role as role10_1_0_, member0_.sex as sex11_1_0_ from member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_1_0_, member0_.chg_dt as chg_dt2_1_0_, member0_.reg_dt as reg_dt3_1_0_, member0_.email as email4_1_0_, member0_.enabled as enabled5_1_0_, member0_.is_auth_email as is_auth_6_1_0_, member0_.name as name7_1_0_, member0_.password as password8_1_0_, member0_.phone_number as phone_nu9_1_0_, member0_.role as role10_1_0_, member0_.sex as sex11_1_0_ from member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_1_0_, member0_.chg_dt as chg_dt2_1_0_, member0_.reg_dt as reg_dt3_1_0_, member0_.email as email4_1_0_, member0_.enabled as enabled5_1_0_, member0_.is_auth_email as is_auth_6_1_0_, member0_.name as name7_1_0_, member0_.password as password8_1_0_, member0_.phone_number as phone_nu9_1_0_, member0_.role as role10_1_0_, member0_.sex as sex11_1_0_ from member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_1_0_, member0_.chg_dt as chg_dt2_1_0_, member0_.reg_dt as reg_dt3_1_0_, member0_.email as email4_1_0_, member0_.enabled as enabled5_1_0_, member0_.is_auth_email as is_auth_6_1_0_, member0_.name as name7_1_0_, member0_.password as password8_1_0_, member0_.phone_number as phone_nu9_1_0_, member0_.role as role10_1_0_, member0_.sex as sex11_1_0_ from member member0_ where member0_.id=?
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/board/getBoardList
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8"]
+             Body = null
+    Session Attrs = {SPRING_SECURITY_CONTEXT=org.springframework.security.core.context.SecurityContextImpl@f718ae67: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@f718ae67: Principal: org.springframework.security.core.userdetails.User@bf806f9d: Username: TestUser; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_ADMIN,ROLE_MEMBER; Credentials: [PROTECTED]; Authenticated: true; Details: null; Granted Authorities: ROLE_ADMIN, ROLE_MEMBER}
+
+Handler:
+             Type = com.algo.inc.web.controller.api.board.BoardApiController
+           Method = public java.util.List<com.algo.inc.web.dto.board.BoardResponseDto> com.algo.inc.web.controller.api.board.BoardApiController.getBoardList()
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json;charset=UTF-8
+             Body = [{"id":148,"title":"스프링부트2.0","content":"스타트 스프링 부트2.0"},{"id":144,"title":"칼럼 4","content":null},{"id":143,"title":"칼럼 4","content":null},{"id":142,"title":"칼럼 4","content":null},{"id":141,"title":"칼럼 4","content":null},{"id":140,"title":"칼럼 3","content":null},{"id":139,"title":"칼럼 3","content":null},{"id":138,"title":"칼럼 3","content":null},{"id":137,"title":"칼럼 3","content":null},{"id":136,"title":"칼럼 2","content":null},{"id":135,"title":"칼럼 2","content":null},{"id":134,"title":"칼럼 2","content":null},{"id":133,"title":"칼럼 2","content":null},{"id":132,"title":"칼럼 1","content":null},{"id":131,"title":"칼럼 1","content":null},{"id":130,"title":"칼럼 1","content":null},{"id":129,"title":"칼럼 1","content":null}]
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2020-08-16 22:21:32.023  INFO 3695 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@579d1f41 testClass = BoardApiControllerTest, testInstance = com.algo.inc.web.controller.BoardApiControllerTest@79688a50, testMethod = 게시글_생성_후_전체_게시글_조회를_하면_마지막_게시글_조회가_되어야_된다@BoardApiControllerTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@640b77a3 testClass = BoardApiControllerTest, locations = '{}', classes = '{class com.algo.inc.Application}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@e7e8512, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5e6828a0, [ImportsContextCustomizer@4bb15d76 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@3a90e842, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6dfb2058, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@47e50488], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true]]
+]]></system-out>
+  <system-err><![CDATA[Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+]]></system-err>
+</testsuite>

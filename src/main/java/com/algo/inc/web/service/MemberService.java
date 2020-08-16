@@ -14,7 +14,6 @@ public class MemberService {
 
     public MemberResponseDto getMember(String id)
     {
-        System.out.println("hI");
         Member member = memberrepository.findById(id).get();
 
         MemberResponseDto dto = new MemberResponseDto();
