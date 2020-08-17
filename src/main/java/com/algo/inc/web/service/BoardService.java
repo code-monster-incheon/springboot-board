@@ -45,8 +45,7 @@ public class BoardService {
         boardResponseDto.setWriter(board.getMember().getId());
         boardResponseDto.setTitle(board.getTitle());
         boardResponseDto.setContent(board.getContent());
-        boardResponseDto.setReplyList();
-        return new BoardResponseDto(entity);
+        return boardResponseDto;
     }
 
     // Create
