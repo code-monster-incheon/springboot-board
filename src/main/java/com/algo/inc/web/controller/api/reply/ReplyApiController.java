@@ -1,4 +1,4 @@
-package com.algo.inc.web.controller.api.board;
+package com.algo.inc.web.controller.api.reply;
 
 import com.algo.inc.web.dto.reply.ReplyResponseDto;
 import com.algo.inc.web.dto.reply.ReplySaveRequestDto;

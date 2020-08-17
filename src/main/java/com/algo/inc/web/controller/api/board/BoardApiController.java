@@ -20,28 +20,34 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-    @GetMapping("/{id}")
-    public BoardResponseDto findById(@PathVariable Long id)
-    {
-        return boardService.findById(id);
-    }
-
-    @PostMapping
-    public Long registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto, Authentication authentication)
-    {
-        return boardService.registerBoard(boardSaveRequestDto, (UserDetails) authentication.getPrincipal());
-    }
-
-    @PutMapping
-    public void updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto)
-    {
-        boardService.updateBaord(boardUpdateRequestDto);
-    }
-
+    // 게시글 전체 불러오기
     @GetMapping("/getBoardList")
-    public List<BoardResponseDto> getBoardList()
-    {
+    public List<BoardResponseDto> getBoardList() {
         return boardService.getBoardList();
     }
 
+    // id로 게시글 불러오기
+    @GetMapping("/{id}")
+    public BoardResponseDto findById(@PathVariable Long id) {
+        return boardService.findById(id);
+    }
+
+    // 게시글 생성
+    @PostMapping
+    public Long registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto, Authentication authentication) {
+        return boardService.registerBoard(boardSaveRequestDto, (UserDetails) authentication.getPrincipal());
+    }
+
+    // 게시글 수정, 세션 필요 없음
+    @PutMapping("/{id}")
+    public void updateBoard(@PathVariable Long id,
+                            @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
+        boardService.updateBaord(id, boardUpdateRequestDto);
+    }
+
+    // 게시글 삭제
+   @DeleteMapping("/{id}")
+    public void deleteBoardById(@PathVariable Long id){
+        boardService.deleteBoardById(id);
+   }
 }
