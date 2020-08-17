@@ -181,4 +181,51 @@ public class BoardApiControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    // 수정 테스트
+    @Test
+    @Transactional
+    @WithMockUser(username="TestUser", roles={"MEMBER","ADMIN"})
+    public void 게시글_수정_테스트2() throws Exception{
+        // 게시글 수정을 할 수 있다는 건,
+        // 시큐리티 검사로 인해 현재 로그인된 유저 정보와 게시글의 작성유저 정보가 일치하다는 뜻
+        // 그렇기 때문에 수정하기 버튼이 존재한다는 것으로 가정
+
+        List<Board> list = boardRepository.findAllBoards();
+        Collections.shuffle(list);
+        String updateId = Long.toString(list.get(0).getId());
+
+        // given
+        String new_content = "게시글이 수정됨.";
+        String new_title = "Updated";
+        String requestUpdateUrl = "/api/board/" + updateId;
+
+        BoardSaveRequestDto dto  = new BoardSaveRequestDto();
+        dto.setTitle(new_title);
+        dto.setContent(new_content);
+        // 필수작업중 하나
+        String jsonParam = new ObjectMapper().writeValueAsString(dto);
+
+        MockHttpServletRequestBuilder saveRequest = put(requestUpdateUrl)
+                .content(jsonParam)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        //when
+        mockMvc.perform(saveRequest)
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        // 수정 확인
+        MockHttpServletRequestBuilder checkRequest = get("/api/board/" + updateId)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        //when
+        mockMvc.perform(checkRequest)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(new_title))
+                .andExpect(jsonPath("$.content").value(new_content));
+
+    }
+
 }

@@ -1,10 +1,13 @@
 .gradle
 .idea
-src/main/resources/application.properties
-
-
+/application.properties
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+*.log
+
+var/
 
 ### STS ###
 .apt_generated
@@ -13,11 +16,13 @@ src/main/resources/application.properties
 .project
 .settings
 .springBeans
+.sts4-cache
 
 ### IntelliJ IDEA ###
 *.iws
 *.iml
 *.ipr
+out/
 
 ### NetBeans ###
 nbproject/private/
@@ -26,3 +31,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+.vscode/
+
+.DS_Store

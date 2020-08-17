@@ -36,9 +36,6 @@ public class BoardService {
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = "+ id));
         List<Reply> replyList = replyRepository.findAllByBoard_Id(id);
 
-        for(int i = 0; i < replyList.size(); i++){
-
-        }
 
         BoardResponseDto boardResponseDto = new BoardResponseDto();
         boardResponseDto.setId(board.getId());
