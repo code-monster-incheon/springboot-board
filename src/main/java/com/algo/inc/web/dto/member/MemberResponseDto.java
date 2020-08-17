@@ -1,4 +1,4 @@
-package com.algo.inc.web.dto.board;
+package com.algo.inc.web.dto.member;
 
 import lombok.Getter;
 import lombok.Setter;
