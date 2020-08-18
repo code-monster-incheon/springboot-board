@@ -22,10 +22,10 @@ public class Reply extends BaseTimeEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name="board_id", nullable = false) // 참조하고 있는 board0가 항상 조회되게 강제함(nullable= false)
+    @JoinColumn(name="board_id") // 참조하고 있는 board0가 항상 조회되게 강제함(nullable= false)
     private Board board;
     @ManyToOne
-    @JoinColumn(name="member_id", nullable = false) // 참조하고 있는 member가 항상 조회되게 강제함(nullable= false)
+    @JoinColumn(name="member_id") // 참조하고 있는 member가 항상 조회되게 강제함(nullable= false)
     private Member member;
 
 }
