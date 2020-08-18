@@ -1,5 +1,6 @@
 package com.algo.inc.web.service;
 
+import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.reply.Reply;
 import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.reply.ReplyResponseDto;
@@ -8,6 +9,7 @@ import com.algo.inc.web.repository.BoardRepository;
 import com.algo.inc.web.repository.MemberRepository;
 import com.algo.inc.web.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,17 +22,16 @@ public class ReplyService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-    // Create
-    public Long registerReply(Long boardId, ReplySaveRequestDto replySaveRequestDto) {
+    // Create, 댓글 생성 : boardId, 댓글 내용, 유저 정보가 필요함
+    public Long registerReply(Long boardId, ReplySaveRequestDto replySaveRequestDto, UserDetails principal) {
+        // 존재하는 게시판인지 먼저 확인, 댓글 작성하려는 찰나에 게시글이 삭제될 수 있으므로
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시판"));
+
         Reply reply = new Reply();
         reply.setContent(replySaveRequestDto.getContent());
-
-        reply.setMember(memberRepository.findById("이효리")
-                .orElseThrow(()->new IllegalArgumentException("유저 오류")));
-
-        reply.setBoard(boardRepository.findById(boardId)
-                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시판")));
-
+        reply.setBoard(board);
+        reply.setMember(memberRepository.findById(principal.getUsername()).get());
         return replyRepository.save(reply).getId();
     }
 
