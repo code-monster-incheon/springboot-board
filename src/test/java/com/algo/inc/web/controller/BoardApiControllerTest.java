@@ -171,21 +171,17 @@ public class BoardApiControllerTest {
         String deleteId = Long.toString(list.get(0).getId());
         String requestUrl = "/api/board/" + deleteId;
 
-        String jsonParam = new ObjectMapper().writeValueAsString(deleteId);
-
         MockHttpServletRequestBuilder deleteReq = delete(requestUrl)
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(deleteReq)
                 .andDo(print())
                 .andExpect(status().isOk());
-
     }
 
     // 수정 테스트
     @Test
     @Transactional
-    @WithMockUser(username="TestUser", roles={"MEMBER","ADMIN"})
     public void 게시글_수정_테스트2() throws Exception{
         // 게시글 수정을 할 수 있다는 건,
         // 시큐리티 검사로 인해 현재 로그인된 유저 정보와 게시글의 작성유저 정보가 일치하다는 뜻
@@ -226,6 +222,25 @@ public class BoardApiControllerTest {
                 .andExpect(jsonPath("$.title").value(new_title))
                 .andExpect(jsonPath("$.content").value(new_content));
 
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username="TestUser", roles={"MEMBER","ADMIN"})
+    public void 게시글_상세조회_테스트() throws Exception {
+        List<Board> boardList = boardRepository.findAllBoards();
+        for(int i = 0; i < boardList.size(); i++){
+            String id = Long.toString(boardList.get(i).getId());
+            String requestRul = "/api/board/" + id;
+
+            MockHttpServletRequestBuilder readRequest = get(requestRul)
+                    .contentType(MediaType.APPLICATION_JSON);
+
+            mockMvc.perform(readRequest)
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(id));
+        }
     }
 
 }

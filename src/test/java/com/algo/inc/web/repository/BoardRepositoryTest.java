@@ -3,6 +3,7 @@ package com.algo.inc.web.repository;
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.member.Member;
 import com.algo.inc.domain.member.Role;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,10 +21,8 @@ public class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
-
     @Autowired
     private MemberRepository memberRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -76,5 +75,7 @@ public class BoardRepositoryTest {
 
             memberRepository.save(member);
         }
+        //TODO : 댓글도 같이 생성시키기
+
     }
 }

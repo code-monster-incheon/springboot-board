@@ -5,6 +5,7 @@ import com.algo.inc.domain.reply.Reply;
 import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.board.BoardSaveRequestDto;
 import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
+import com.algo.inc.web.dto.reply.ReplyResponseDto;
 import com.algo.inc.web.repository.BoardRepository;
 import com.algo.inc.web.repository.MemberRepository;
 import com.algo.inc.web.repository.ReplyRepository;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,20 +30,29 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final ReplyRepository replyRepository;
 
-    // TODO : boardId를 가진 reply list를 전부 받아와서,
-    //  replyResponseDto에 맞게 list에 삽입하여 boardResponseDto에 넣기
-    // Read
+    // Read, 게시글을 불러오면 당연히 댓글도 같이 불러와야함
     public BoardResponseDto findById(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = "+ id));
-        List<Reply> replyList = replyRepository.findAllByBoard_Id(id);
 
+        // 보드 id에 존재하는 모든 댓글을 가져와서 ReponseDto로 변환
+        List<Reply> replyList = replyRepository.findAllByBoard_Id(id);
+        List<ReplyResponseDto> list = new ArrayList<>();
+        for(int i = 0; i < replyList.size(); i++){
+            ReplyResponseDto replyResponseDto = new ReplyResponseDto();
+            replyResponseDto.setId(replyList.get(i).getId());
+            replyResponseDto.setWriter(replyList.get(i).getMember().getId());
+            replyResponseDto.setContent(replyList.get(i).getContent());
+            replyResponseDto.setReg_dt(replyList.get(i).getRegDt());
+            list.add(replyResponseDto);
+        }
 
         BoardResponseDto boardResponseDto = new BoardResponseDto();
         boardResponseDto.setId(board.getId());
         boardResponseDto.setWriter(board.getMember().getId());
         boardResponseDto.setTitle(board.getTitle());
         boardResponseDto.setContent(board.getContent());
+        boardResponseDto.setReplyList(list);
         return boardResponseDto;
     }
 
@@ -70,6 +81,7 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    // 게시글 전체를 불러오는 메소드
     public List<BoardResponseDto> getBoardList()
     {
         return boardRepository
