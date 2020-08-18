@@ -32,11 +32,12 @@ public class BoardService {
 
     // Read, 게시글을 불러오면 당연히 댓글도 같이 불러와야함
     public BoardResponseDto findById(Long id) {
+
         Board board = boardRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id = "+ id));
 
+        List<Reply> replyList = board.getReplyList();
         // 보드 id에 존재하는 모든 댓글을 가져와서 ReponseDto로 변환
-        List<Reply> replyList = replyRepository.findAllByBoard_Id(id);
         List<ReplyResponseDto> list = new ArrayList<>();
         for(int i = 0; i < replyList.size(); i++){
             ReplyResponseDto replyResponseDto = new ReplyResponseDto();
@@ -91,22 +92,6 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    // TODO : ajax 로 바꾼후에 수정 할 것
-//    public Page<Board> getBoardList2(Search search) {
-//        BooleanBuilder builder = new BooleanBuilder();
-//        QBoard qBoard = QBoard.board;
-//        if (search.getSearchCondition().equals("TITLE"))
-//        {
-//            builder.and(qBoard.title.like("%" + search.getSearchKeyword() + "%"));
-//        }
-//        else if(search.getSearchCondition().equals("CONTENT"))
-//
-//        Pageable pageable = PageRequest.of(0, 10, Sort.Direct{
-//            builder.and(qBoard.content.like("%" + search.getSearchKeyword() + "%"));
-//        }
-//        ion.DESC, "id");
-//        return boardRepository.findAll(builder, pageable);
-//    }
 
     public Board getBoard(Board board) {
         return boardRepository.findById(board.getId()).get();
