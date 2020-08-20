@@ -17,4 +17,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
 
     @Query("SELECT b FROM Board b ORDER BY b.id DESC ")
     List<Board> findAllBoards();
+
+    List<Board> findAllByMember_IdOrderByIdDesc(String memberId);
 }

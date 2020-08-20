@@ -116,8 +116,7 @@ public class BoardApiControllerTest {
 
 
         // /api/board/getBoardList 에서 게시글 역순으로 불러오는 작업
-        MockHttpServletRequestBuilder checkRequest =
-                get(requestUrl)
+        MockHttpServletRequestBuilder checkRequest = get(requestUrl)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // then
@@ -163,6 +162,7 @@ public class BoardApiControllerTest {
 
     // 삭제 테스트
     @Test
+    @Transactional
     @WithMockUser(username="TestUser", roles={"MEMBER","ADMIN"})
     public void 게시글_번호로_삭제_테스트() throws Exception{
         List<Board> list = boardRepository.findAllBoards();
@@ -211,7 +211,7 @@ public class BoardApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        // 수정 확인
+        // 수정 확인 작업
         MockHttpServletRequestBuilder checkRequest = get("/api/board/" + updateId)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -225,15 +225,14 @@ public class BoardApiControllerTest {
     }
 
     @Test
-    @Transactional
     @WithMockUser(username="TestUser", roles={"MEMBER","ADMIN"})
     public void 게시글_상세조회_테스트() throws Exception {
         List<Board> boardList = boardRepository.findAllBoards();
         for(int i = 0; i < boardList.size(); i++){
             String id = Long.toString(boardList.get(i).getId());
-            String requestRul = "/api/board/" + id;
+            String requestUrl = "/api/board/" + id;
 
-            MockHttpServletRequestBuilder readRequest = get(requestRul)
+            MockHttpServletRequestBuilder readRequest = get(requestUrl)
                     .contentType(MediaType.APPLICATION_JSON);
 
             mockMvc.perform(readRequest)
@@ -243,4 +242,15 @@ public class BoardApiControllerTest {
         }
     }
 
+    @Test
+    public void 유저_아이디로_게시글_조회_테스트() throws Exception{
+        String id = "spring";
+        String requestUrl = "/api/board/getBoardList/" + id;
+        MockHttpServletRequestBuilder readRequest = get(requestUrl)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(readRequest)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].writer").value(id));
+    }
 }
