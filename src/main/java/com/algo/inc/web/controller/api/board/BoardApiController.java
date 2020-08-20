@@ -26,10 +26,16 @@ public class BoardApiController {
         return boardService.getBoardList();
     }
 
-    // Read, id로 게시글 불러오기, 댓글도 같이 BoardResponseDto 안에 list로 불러오기
+    // Read, id로 게시글 상세조회, 댓글도 같이 BoardResponseDto 안에 list로 불러오기
     @GetMapping("/{id}")
     public BoardResponseDto findById(@PathVariable Long id) {
         return boardService.findById(id);
+    }
+
+    // Read by memberId, 유저가 작성한 게시글 모두 불러오기
+    @GetMapping("/getBoardList/{memberId}")
+    public List<BoardResponseDto> getBoardListByMember(@PathVariable String memberId){
+        return boardService.getBoardListByMember(memberId);
     }
 
     // Create, 게시글 생성
@@ -45,7 +51,7 @@ public class BoardApiController {
         boardService.updateBaord(id, boardUpdateRequestDto);
     }
 
-    // Delete, 게시글 삭제, TODO : 댓글도 같이 사라지는지 확인
+    // Delete, 게시글 삭제, 댓글도 같이 삭제되는거 확인완료
    @DeleteMapping("/{id}")
     public void deleteBoardById(@PathVariable Long id){
         boardService.deleteBoardById(id);

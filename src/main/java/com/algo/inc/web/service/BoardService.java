@@ -30,6 +30,15 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final ReplyRepository replyRepository;
 
+    // Read All, 게시글 전체를 불러오는 메소드
+    public List<BoardResponseDto> getBoardList() {
+        return boardRepository
+                .findAllBoards()
+                .stream()
+                .map(BoardResponseDto::createBoardResponse)
+                .collect(Collectors.toList());
+    }
+
     // Read, 게시글을 불러오면 당연히 댓글도 같이 불러와야함
     public BoardResponseDto findById(Long id) {
 
@@ -76,20 +85,17 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    // Delete
+    public void deleteBoardById(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글"));
+        boardRepository.delete(board);
+    }
+
     public Page<Board> getAllBoardList()
     {
         Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
         return boardRepository.findAll(pageable);
-    }
-
-    // 게시글 전체를 불러오는 메소드
-    public List<BoardResponseDto> getBoardList()
-    {
-        return boardRepository
-                .findAllBoards()
-                .stream()
-                .map(BoardResponseDto::createBoardResponse)
-                .collect(Collectors.toList());
     }
 
 
@@ -110,10 +116,18 @@ public class BoardService {
         return boardRepository.getAllBoardList(pageable);
     }
 
-    // id로 board 삭제
-    public void deleteBoardById(Long id) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글"));
-        boardRepository.delete(board);
+    // 유저가 작성한 게시글 모두 불러오기
+    public List<BoardResponseDto> getBoardListByMember(String memberId) {
+        List<Board> boardList = boardRepository.findAllByMember_IdOrderByIdDesc(memberId);
+        List<BoardResponseDto> list = new ArrayList<>();
+        for(int i = 0; i < boardList.size();i++){
+            BoardResponseDto boardResponseDto = new BoardResponseDto();
+            boardResponseDto.setId(boardList.get(i).getId());
+            boardResponseDto.setWriter(boardList.get(i).getMember().getId());
+            boardResponseDto.setTitle(boardList.get(i).getTitle());
+            boardResponseDto.setContent(boardList.get(i).getContent());
+            list.add(boardResponseDto);
+        }
+        return list;
     }
 }

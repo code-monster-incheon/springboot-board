@@ -37,23 +37,6 @@ public class ReplyService {
 
     // Read, 게시글 내에 존재하는 모든 댓글 불러오기
     public List<ReplyResponseDto> findReplyOnPost(Long boardId) {
-
-//        List<Reply> list = replyRepository.findAllByBoard_Id(boardId);
-//        List<ReplyResponseDto> replyList = new ArrayList<>();
-//
-//        for(int i = 0; i < list.size(); i++){
-//            ReplyResponseDto replyResponseDto = new ReplyResponseDto();
-//            replyResponseDto.setId(list.get(i).getId());
-//            replyResponseDto.setWriter(list.get(i).getMember().getId());
-//            replyResponseDto.setContent(list.get(i).getContent());
-//            replyResponseDto.setReg_dt(list.get(i).getRegDt());
-//            replyList.add(replyResponseDto);
-//        }
-//
-//        if(replyList.isEmpty())
-//            return null;
-//        return replyList;
-
         Board board = boardRepository.findById(boardId).get();
 
         List<Reply> replyList = board.getReplyList();
@@ -69,7 +52,6 @@ public class ReplyService {
             replyResponseDtos.add(dto);
         }
         return replyResponseDtos;
-
     }
 
     // 댓글 id 컬럼으로 불러오기
@@ -90,7 +72,6 @@ public class ReplyService {
 
     // Update
     public Long updateReply(Long replyId, ReplySaveRequestDto replySaveRequestDto) {
-
         Reply reply = replyRepository
                 .findById(replyId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글"));
@@ -102,7 +83,6 @@ public class ReplyService {
 
     // Delete
     public void deleteReply(Long replyId) {
-
         Reply reply = replyRepository.findById(replyId)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 댓글"));
 
