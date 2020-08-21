@@ -245,7 +245,7 @@ public class BoardApiControllerTest {
     @Test
     public void 유저_아이디로_게시글_조회_테스트() throws Exception{
         String id = "spring";
-        String requestUrl = "/api/board/getBoardList/" + id;
+        String requestUrl = "/api/board/getBoard?memberId=" + id;
         MockHttpServletRequestBuilder readRequest = get(requestUrl)
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(readRequest)

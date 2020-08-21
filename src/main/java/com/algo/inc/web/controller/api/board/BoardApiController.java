@@ -33,8 +33,8 @@ public class BoardApiController {
     }
 
     // Read by memberId, 유저가 작성한 게시글 모두 불러오기
-    @GetMapping("/getBoardList/{memberId}")
-    public List<BoardResponseDto> getBoardListByMember(@PathVariable String memberId){
+    @GetMapping("/getBoard")
+    public List<BoardResponseDto> getBoardListByMember(@RequestParam("memberId") String memberId){
         return boardService.getBoardListByMember(memberId);
     }
 

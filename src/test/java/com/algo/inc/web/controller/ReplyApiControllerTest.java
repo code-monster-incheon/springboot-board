@@ -55,7 +55,7 @@ public class ReplyApiControllerTest {
     }
 
     @Test
-    @Transactional
+    //@Transactional
     @WithMockUser(username="TestUser", roles={"MEMBER", "ADMIN"})
     public void 댓글_생성_테스트() throws Exception{
         List<Board> boardList = boardRepository.findAll();
@@ -76,5 +76,4 @@ public class ReplyApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isNotEmpty());
     }
-
 }
