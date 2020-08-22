@@ -1,9 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-    <head>
-        <title>게시글 상세</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    </head>
-    <body th:align="center">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+    <div layout:fragment="content">
         <h1>게시글 상세</h1>
         <form>
             <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
@@ -33,7 +33,4 @@
 
         <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/view/board/deleteBoard(id=${board.id})}">글 삭제</a>&nbsp;&nbsp;&nbsp;
         <a th:href="@{/view/board/getBoardList}">글 목록</a>
-
-    </body>
-
-</http>
+    </div>

@@ -67,6 +67,7 @@ dependencies {
 
     // 1. Use Guava in your implementation only:
     implementation("com.google.guava:guava:29.0-jre")
+    compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.0.5'
 
     testCompile('org.springframework.security:spring-security-test')
     implementation 'com.querydsl:querydsl-jpa'
