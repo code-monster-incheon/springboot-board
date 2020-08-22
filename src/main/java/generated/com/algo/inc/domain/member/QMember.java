@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final com.algo.inc.domain.QBaseTimeEntity _super = new com.algo.inc.domain.QBaseTimeEntity(this);
 
+    public final ListPath<com.algo.inc.domain.basket.Basket, com.algo.inc.domain.basket.QBasket> basketList = this.<com.algo.inc.domain.basket.Basket, com.algo.inc.domain.basket.QBasket>createList("basketList", com.algo.inc.domain.basket.Basket.class, com.algo.inc.domain.basket.QBasket.class, PathInits.DIRECT2);
+
     public final ListPath<com.algo.inc.domain.board.Board, com.algo.inc.domain.board.QBoard> boardList = this.<com.algo.inc.domain.board.Board, com.algo.inc.domain.board.QBoard>createList("boardList", com.algo.inc.domain.board.Board.class, com.algo.inc.domain.board.QBoard.class, PathInits.DIRECT2);
 
     //inherited
@@ -40,6 +42,8 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath password = createString("password");
 
     public final StringPath phoneNumber = createString("phoneNumber");
+
+    public final ListPath<com.algo.inc.domain.order.ProductOrder, com.algo.inc.domain.order.QProductOrder> productOrderList = this.<com.algo.inc.domain.order.ProductOrder, com.algo.inc.domain.order.QProductOrder>createList("productOrderList", com.algo.inc.domain.order.ProductOrder.class, com.algo.inc.domain.order.QProductOrder.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDt = _super.regDt;
