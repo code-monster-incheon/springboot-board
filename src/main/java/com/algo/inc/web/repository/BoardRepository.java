@@ -19,4 +19,5 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
     List<Board> findAllBoards();
 
     List<Board> findAllByMember_IdOrderByIdDesc(String memberId);
+    List<Board> findByMember(String memberId);
 }
