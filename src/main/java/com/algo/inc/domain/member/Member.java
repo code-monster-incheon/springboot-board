@@ -2,7 +2,10 @@ package com.algo.inc.domain.member;
 
 
 import com.algo.inc.domain.BaseTimeEntity;
+import com.algo.inc.domain.basket.Basket;
 import com.algo.inc.domain.board.Board;
+import com.algo.inc.domain.order.ProductOrder;
+import com.algo.inc.domain.product.Product;
 import com.algo.inc.domain.reply.Reply;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -16,7 +19,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-@ToString(exclude = {"boardList", "replyList"})
+@ToString(exclude = {"boardList", "replyList", "basketList"})
 @Accessors(chain = true)
 public class Member extends BaseTimeEntity {
 
@@ -38,6 +41,12 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Reply> replyList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Basket> basketList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private List<ProductOrder> productOrderList;
 
     @Builder
     public Member(String id, String name, String password, Role role)
