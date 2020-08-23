@@ -130,4 +130,8 @@ public class BoardService {
         }
         return list;
     }
+
+    public Page<Board> getBoardPageList(Pageable page) {
+        return boardRepository.findByIdGreaterThan(0L, page);
+    }
 }
