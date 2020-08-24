@@ -2,6 +2,7 @@ package com.algo.inc.web.service;
 
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.reply.Reply;
+import com.algo.inc.util.page.BoardsPage;
 import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.board.BoardSaveRequestDto;
 import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -131,7 +131,15 @@ public class BoardService {
         return list;
     }
 
-    public Page<Board> getBoardPageList(Pageable page) {
-        return boardRepository.findByIdGreaterThan(0L, page);
+    public Page<Board> getBoardPageList(BoardsPage boardsPage, Pageable page)
+    {
+        return boardRepository.findAll(
+                boardRepository.makePredicate(boardsPage.getType(), boardsPage.getKeyword()), page
+        );
+    }
+
+    public Board getView(Long id, BoardsPage boardsPage)
+    {
+        return boardRepository.findById(id).get();
     }
 }

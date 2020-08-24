@@ -22,9 +22,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
     List<Board> findAllBoards();
 
     List<Board> findAllByMember_IdOrderByIdDesc(String memberId);
-    List<Board> findByMember(String memberId);
-
-    Page<Board> findByIdGreaterThan(Long id, Pageable page);
 
     public default Predicate makePredicate(String type, String keyword)
     {

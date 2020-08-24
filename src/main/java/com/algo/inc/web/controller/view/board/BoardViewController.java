@@ -29,9 +29,7 @@ public class BoardViewController {
     public String list(@ModelAttribute("boardsPage") BoardsPage boardsPage, Model model)
     {
         Pageable page = boardsPage.makePageable(0, "id");
-        Page<Board> result = boardService.getBoardPageList(page);
-        log.info("page 출력 : " + page);
-        log.info("result 출력 " + result);
+        Page<Board> result = boardService.getBoardPageList(boardsPage, page);
 
         model.addAttribute("result", new PageMaker(result));
         return "board/list";
@@ -72,6 +70,14 @@ public class BoardViewController {
         board.setMember(principal.getMember());
         boardService.insertBoard(board);
         return "redirect:getBoardList";
+    }
+
+    @GetMapping("/detail")
+    public String view(Long id, @ModelAttribute("boardsPage") BoardsPage boardsPage, Model model)
+    {
+        Board board = boardService.getView(id, boardsPage);
+        model.addAttribute("vo", board);
+        return "board/detail";
     }
 
 }
