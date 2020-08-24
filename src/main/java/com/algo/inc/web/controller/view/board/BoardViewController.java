@@ -6,6 +6,7 @@ import com.algo.inc.util.page.BoardsPage;
 import com.algo.inc.util.page.PageMaker;
 import com.algo.inc.web.repository.BoardRepository;
 import com.algo.inc.web.service.BoardService;
+import com.algo.inc.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,13 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.transaction.Transactional;
+
 @Controller
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/view/board")
 public class BoardViewController {
 
     private final BoardService boardService;
+    private final MemberService memberService;
     private final BoardRepository boardRepository;
 
     @GetMapping("/list")
@@ -53,21 +57,24 @@ public class BoardViewController {
         model.addAttribute("board", boardService.getBoard(board));
         return "board/getBoard";
     }
+
     @GetMapping("/register")
-    public void registerGET(@ModelAttribute("vo") WebBoard vo)
+    public String registerGET(@ModelAttribute("board") Board board)
     {
         log.info("register get");
+        return "board/register";
     }
 
     @PostMapping("/register")
-    public String registerPOST(@ModelAttribute("vo") WebBoard vo, RedirectAttributes rttr)
+    @Transactional
+    public String registerPOST(@ModelAttribute("board") Board board, RedirectAttributes rttr)
     {
         log.info("register post");
-        log.info("" + vo);
-
-        webBoardRepository.save(vo);
+        log.info("" + board);
+        board.setMember(memberService.getMockUser());
+        boardService.save(board);
         rttr.addFlashAttribute("msg", "success");
-        return "redirect:/boards/list";
+        return "redirect:/view/board/list";
     }
 
     @GetMapping("/deleteBoard")
