@@ -6,7 +6,6 @@ import com.algo.inc.util.page.BoardsPage;
 import com.algo.inc.util.page.PageMaker;
 import com.algo.inc.web.repository.BoardRepository;
 import com.algo.inc.web.service.BoardService;
-import com.algo.inc.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.transaction.Transactional;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,7 +27,6 @@ import javax.transaction.Transactional;
 public class BoardViewController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
     private final BoardRepository boardRepository;
 
     @GetMapping("/list")
@@ -66,12 +63,11 @@ public class BoardViewController {
     }
 
     @PostMapping("/register")
-    @Transactional
     public String registerPOST(@ModelAttribute("board") Board board, RedirectAttributes rttr)
     {
         log.info("register post");
         log.info("" + board);
-        board.setMember(memberService.getMockUser());
+
         boardService.save(board);
         rttr.addFlashAttribute("msg", "success");
         return "redirect:/view/board/list";

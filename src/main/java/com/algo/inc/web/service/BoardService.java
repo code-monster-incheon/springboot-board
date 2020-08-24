@@ -29,7 +29,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final ReplyRepository replyRepository;
-
+    private final MemberService memberService;
     // Read All, 게시글 전체를 불러오는 메소드
     public List<BoardResponseDto> getBoardList() {
         return boardRepository
@@ -144,6 +144,7 @@ public class BoardService {
     }
 
     public void save(Board board) {
+        board.setMember(memberService.getMockUser());
         boardRepository.save(board);
     }
 }
