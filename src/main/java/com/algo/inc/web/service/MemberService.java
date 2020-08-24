@@ -13,6 +13,14 @@ public class MemberService {
 
     private final MemberRepository memberrepository;
 
+    public Member getMockUser()
+    {
+        Member member = new Member();
+        member.setId("TestUser");
+        member.setName("TestUser");
+        memberrepository.save(member);
+        return member;
+    }
     public MemberResponseDto getMember(String id)
     {
         Member member = memberrepository.findById(id).get();
