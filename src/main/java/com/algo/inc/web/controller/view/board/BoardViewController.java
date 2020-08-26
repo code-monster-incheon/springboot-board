@@ -151,5 +151,4 @@ public class BoardViewController {
 
         return "redirect:/view/board/list";
     }
-
 }
