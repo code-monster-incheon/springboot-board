@@ -1,6 +1,6 @@
 .gradle
 .idea
-/application.properties
+/src/main/resources/application.properties
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
