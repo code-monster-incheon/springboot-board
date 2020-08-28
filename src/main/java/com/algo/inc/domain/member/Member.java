@@ -5,21 +5,18 @@ import com.algo.inc.domain.BaseTimeEntity;
 import com.algo.inc.domain.basket.Basket;
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.order.ProductOrder;
-import com.algo.inc.domain.product.Product;
 import com.algo.inc.domain.reply.Reply;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-@ToString(exclude = {"boardList", "replyList", "basketList"})
+@ToString(exclude = {"boardList", "replyList", "basketList", "productOrderList"})
 @Accessors(chain = true)
 public class Member extends BaseTimeEntity {
 

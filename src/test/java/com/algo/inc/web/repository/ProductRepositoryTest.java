@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 
@@ -23,8 +25,10 @@ public class ProductRepositoryTest {
             for(int j = 1; j <= 10; j++) {
                 Product product = new Product();
                 product.setQuantity(30);
+                product.setPrice((i+1) * j * 5000);
                 product.setEnabled(true);
                 product.setName(item + j);
+                product.setRegDt(LocalDateTime.now());
                 productRepository.save(product);
             }
         }
