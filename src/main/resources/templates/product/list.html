@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>상품 목록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
-얌마
+
+<body th:align="center">
+<h1>상품 목록</h1>
+<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+<tr>
+    <th bgcolor="blue" width="50">상품 ID</th>
+    <th bgcolor="blue" width="200">상품 이름</th>
+    <th bgcolor="blue" width="100">상품 가격</th>
+    <th bgcolor="blue" width="50">상품 갯수</th>
+</tr>
+
+<tr th:each="product : ${productList}">
+    <td th:text="${product.id}"></td>
+    <td th:text="${product.name}"></td>
+    <td th:text="${product.price}"></td>
+    <td th:text="${product.quantity}"></td>
+</tr>
 </body>
 </html>
