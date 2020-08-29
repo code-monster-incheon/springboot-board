@@ -6,6 +6,7 @@ import com.algo.inc.domain.product.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"productOrder", "product"})
 public class OrderProductMap extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
