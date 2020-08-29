@@ -78,13 +78,40 @@ public class BoardRepositoryTest {
         for (int i = 1; i <= 4; i++)
         {
             Member member = initMembers.get(i-1);
-            String title = "칼럼 " + i;
+            String title = "칼럼 ";
+            int cnt =1;
 
             member.setBoardList(Lists.newArrayList(
-                    initReply(Board.builder().title(title).content("content" + i).member(member).build()),
-                    initReply(Board.builder().title(title).content("content" + i).member(member).build()),
-                    initReply(Board.builder().title(title).content("content" + i).member(member).build()),
-                    initReply(Board.builder().title(title).content("content" + i).member(member).build())
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build()),
+                    initReply(Board.builder().title(title + cnt).content("content" + cnt++).member(member).build())
             ));
 
             memberRepository.save(member);

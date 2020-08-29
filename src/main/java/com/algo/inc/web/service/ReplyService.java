@@ -2,14 +2,12 @@ package com.algo.inc.web.service;
 
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.reply.Reply;
-import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.reply.ReplyResponseDto;
 import com.algo.inc.web.dto.reply.ReplySaveRequestDto;
 import com.algo.inc.web.repository.BoardRepository;
 import com.algo.inc.web.repository.MemberRepository;
 import com.algo.inc.web.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
