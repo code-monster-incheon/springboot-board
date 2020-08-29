@@ -29,5 +29,7 @@ public class ProductApiController {
         return productService.getProductList("ALL");
     }
 
+    // 김종범 TODO : 상품 상세받아오는 api, 상품 삭제를 enabled false로 변경
+    // 김종범 TODO : 댓글 수정, 삭제 javascript
 
 }

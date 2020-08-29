@@ -5,8 +5,6 @@ import com.algo.inc.web.dto.reply.ReplySaveRequestDto;
 import com.algo.inc.web.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +29,8 @@ public class ReplyApiController {
 
     // Read, boardId번 게시글에 달린 모든 댓글을 읽어온다
     @GetMapping("/{boardId}")
-    public List<ReplyResponseDto> findReplyOnPost(@PathVariable Long boardId){
+    public List<ReplyResponseDto> findReplyOnPost(@PathVariable Long boardId)
+    {
         log.debug("/api/replies/id 댓글 조회왔습니다.");
         return replyService.findReplyOnPost(boardId);
     }
