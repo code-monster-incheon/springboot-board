@@ -29,6 +29,12 @@ public class ReplyRepositoryTest {
     @Autowired
     private ReplyRepository replyRepository;
 
+
+    @Test
+    public void initBoardReply()
+    {
+
+    }
     @Test
     @Transactional
     @WithMockUser(username="TestUser", roles={"MEMBER", "ADMIN"})

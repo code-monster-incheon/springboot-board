@@ -23,7 +23,7 @@ public class ReplyService {
     private final MemberRepository memberRepository;
 
     // Create, 댓글 생성 : boardId, 댓글 내용, 유저 정보가 필요함
-    public Long registerReply(Long boardId, ReplySaveRequestDto replySaveRequestDto, UserDetails principal) {
+    public Long registerReply(Long boardId, ReplySaveRequestDto replySaveRequestDto) {
         // 존재하는 게시판인지 먼저 확인, 댓글 작성하려는 찰나에 게시글이 삭제될 수 있으므로
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시판"));
@@ -31,7 +31,7 @@ public class ReplyService {
         Reply reply = new Reply();
         reply.setContent(replySaveRequestDto.getContent());
         reply.setBoard(board);
-        reply.setMember(memberRepository.findById(principal.getUsername()).get());
+        reply.setMember(memberRepository.findById("TestUser").get());
         return replyRepository.save(reply).getId();
     }
 
@@ -45,6 +45,7 @@ public class ReplyService {
         for (Reply reply : replyList)
         {
             ReplyResponseDto dto = new ReplyResponseDto();
+            dto.setId(reply.getId());
             dto.setContent(reply.getContent());
             dto.setWriter(reply.getMember().getId());
             dto.setReg_dt(reply.getRegDt());

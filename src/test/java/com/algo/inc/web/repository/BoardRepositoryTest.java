@@ -3,7 +3,9 @@ package com.algo.inc.web.repository;
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.member.Member;
 import com.algo.inc.domain.member.Role;
+import com.algo.inc.domain.reply.Reply;
 import org.assertj.core.util.Lists;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,19 @@ public class BoardRepositoryTest {
     private MemberRepository memberRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    // 테스트코드가 실행되기 전에 실행되는 코드
+    @Before
+    public void initTestMember()
+    {
+        Member member = new Member();
+        member.setId("TestUser");
+        member.setEnabled(true);
+        member.setRole(Role.ROLE_MEMBER);
+        member.setEmail("test@test.com");
+        member.setName("TestUser");
+        memberRepository.save(member);
+    }
 
     @Test
     public void initMemberAndBoard()
@@ -66,17 +81,43 @@ public class BoardRepositoryTest {
             String title = "칼럼 " + i;
 
             member.setBoardList(Lists.newArrayList(
-                    Board.builder().title(title).content("content" + i).member(member).build(),
-                    Board.builder().title(title).content("content" + i).member(member).build(),
-                    Board.builder().title(title).content("content" + i).member(member).build(),
-                    Board.builder().title(title).content("content" + i).member(member).build()
+                    initReply(Board.builder().title(title).content("content" + i).member(member).build()),
+                    initReply(Board.builder().title(title).content("content" + i).member(member).build()),
+                    initReply(Board.builder().title(title).content("content" + i).member(member).build()),
+                    initReply(Board.builder().title(title).content("content" + i).member(member).build())
             ));
 
             memberRepository.save(member);
         }
         //TODO : 댓글도 같이 생성시키기
-
     }
+
+    private Board initReply(Board board)
+    {
+        Member member = memberRepository.findById("TestUser").get();
+        List<Reply> replyList = Lists.newArrayList(
+                Reply.builder().content("댓글 내용 무....")
+                        .member(member)
+                        .board(board)
+                        .build(),
+
+                Reply.builder().content("댓글 내용 무....")
+                        .member(member)
+                        .board(board)
+                        .build(),
+
+
+                Reply.builder().content("댓글 내용 무....")
+                        .member(member)
+                        .board(board)
+                        .build()
+        );
+
+        board.setReplyList(replyList);
+        boardRepository.save(board);
+        return board;
+    }
+
 
 
 }
