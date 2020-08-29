@@ -58,6 +58,7 @@
                 <th>작성일</th>
             </tr>
             </thead>
+
             <tbody id="replyTable">
 
             </tbody>
@@ -107,6 +108,7 @@
 
         $(document).ready(function(e){
 
+
             (function(){
                 // 댓글 가져오기
                 replyManager.getAll([[${vo.id}]], printList);
@@ -147,6 +149,8 @@
                 var str = "";
                 var replyObj;
                 console.log(list)
+
+
                 for (var i = 0; i < list.length; i++)
                 {
                     replyObj = list[i];

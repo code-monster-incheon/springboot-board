@@ -5,6 +5,8 @@ var replyManager = (function(){
         $.getJSON('/api/replies/' + obj, callback);
     };
 
+
+
     var add = function(obj, callback)
     {
         console.log("add ...");
