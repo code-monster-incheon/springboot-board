@@ -16,7 +16,7 @@ var replyManager = (function(){
             url : '/api/replies/' + obj.id,
             data : JSON.stringify(obj),
             dataType:'json',
-            contentType:'application/json',
+            contentType:"application/json",
             success:callback
         });
     };
@@ -31,7 +31,15 @@ var replyManager = (function(){
 
     var remove = function(obj, callback)
     {
+        console.log("remove .........");
 
+        $.ajax({
+            type:'delete',
+            url:'/api/replies/' + obj.replyId,
+            dataType:'json',
+            contentType: "application/json",
+            success:callback
+        });
     };
 
     return {
