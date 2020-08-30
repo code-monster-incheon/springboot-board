@@ -27,4 +27,9 @@ public class ProductViewController {
         model.addAttribute("productList", productList);
         return "product/list";
     }
+
+    @GetMapping("/detail")
+    public String getProductDetail(){
+        return "product/detail";
+    }
 }
