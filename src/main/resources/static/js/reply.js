@@ -23,10 +23,16 @@ var replyManager = (function(){
 
     var update = function(obj, callback)
     {
+        console.log("update .....");
+
         $.ajax({
             type : 'put',
-
-        })
+            url:'/api/replies/' + obj.replyId,
+            dataType:'json',
+            data:JSON.stringify(obj),
+            contentType:"application/json",
+            success:callback
+        });
     };
 
     var remove = function(obj, callback)
@@ -34,10 +40,10 @@ var replyManager = (function(){
         console.log("remove .........");
 
         $.ajax({
-            type:'delete',
-            url:'/api/replies/' + obj.replyId,
+            type : 'delete',
+            url : '/api/replies/' + obj.replyId,
             dataType:'json',
-            contentType: "application/json",
+            contentType:"application/json",
             success:callback
         });
     };
