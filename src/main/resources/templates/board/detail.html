@@ -95,8 +95,7 @@
     <!-- end Modal -->
 
 </div>
-
-
+</html>     <!-- 이거 없던건데 닫아도 되는건지 확인해주시면 감사합니다. -->
 
 <!-- end fragment -->
 
@@ -127,22 +126,29 @@
             // 댓글 모달에서 '저장'버튼이 눌렸을 때
             $("#modalBtn").click(function(){
 
+                var replyText = replyTextObj.val();
+                var replyer = replyerObj.val();
+
                 if (mode == 'ADD')
                 {
-                    var replyText = replyTextObj.val();
                     var obj = {content : replyText, id : id};
 
                     replyManager.add(obj, function(list){
-                        replyManager.getAll(id, printList);
                         alert("새로운 댓글이 추가되었습니다.");
-                        $("#myModal").modal("hide");
-                        replyTextObj.val("");
-                        replyerObj = $("input[name='replyer']");
+                        afterAll(list);
+                    });
+                }
+                else if(mode=='MOD')
+                {
+                    var obj = {content : replyText, id : id, replyId : replyId};
+                    replyManager.update(obj, function (list) {
+                        alert("댓글이 수정되었습니다.")
+                        afterAll(list);
                     });
                 }
             });
 
-            // 댓글 수정/삭제
+            // 댓글 수정 or 삭제를 위해 댓글 row 클릭했을 시
             var replyId;
             $("#replyTable").on("click", "tr", function(e){
                 var tds = $(this).find('td');
@@ -160,15 +166,23 @@
             // 모달창에서 삭제버튼이 눌렸을 떄
             $("#delModalBtn").on("click", function() {
                 var obj = {boardId : id, replyId : replyId};
+
                 replyManager.remove(obj, function(list) {
-                    //printList(list);
+                    console.log("remove 함수에서 삭제 처리는 이루어 지는데 여기 이 콘솔 조차 찍히지가 않습니다 상현님..")
                     replyManager.getAll(id, printList);
-                    alert("댓글이 삭제되었습니다.");
+                    alert("댓글이 삭제되었습니다.")
                     $("#myModal").modal("hide");
                     replyTextObj.val("");
-                    replyerObj = $("input[name='replyer']");
+                    replyerObj.val("");
                 });
             });
+
+            function afterAll(list){
+                replyManager.getAll(id, printList);
+                $("#myModal").modal("hide");
+                replyTextObj.val("");
+                replyerObj.val("");
+            }
 
             function printList(list) {
                 var str = "";
