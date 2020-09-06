@@ -3,6 +3,7 @@ package com.algo.inc.web.repository;
 
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.board.QBoard;
+import com.algo.inc.domain.reply.Reply;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
@@ -46,6 +47,9 @@ public interface BoardRepository extends JpaRepository<Board, Long>, QuerydslPre
         }
         return builder;
     }
+
+    @Query("SELECT r FROM Reply r WHERE r.board.id = ?1")
+    List<Reply> getReplyByBoardId(Long boardId);
 
 
 }

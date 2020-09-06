@@ -36,3 +36,5 @@ nbdist/
 .vscode/
 
 .DS_Store
+
+*.properties

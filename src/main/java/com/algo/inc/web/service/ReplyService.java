@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -81,11 +82,22 @@ public class ReplyService {
     }
 
     // Delete
-    public void deleteReply(Long replyId) {
+    public List<ReplyResponseDto> deleteReply(Long boardId, Long replyId) {
         Reply reply = replyRepository.findById(replyId)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 댓글"));
+                .orElseThrow(()-> new IllegalArgumentException("댓글이 존재 하지 않습니다."));
 
         replyRepository.delete(reply);
+        List<Reply> replyList = boardRepository.getReplyByBoardId(boardId);
+        return replyList.stream()
+                .map(rep -> ReplyResponseDto.builder()
+                                .content(rep.getContent())
+                                .writer(rep.getMember().getId())
+                                .reg_dt(rep.getRegDt())
+                                .id(rep.getId())
+                                .build()
+                )
+                .collect(Collectors.toList());
+
     }
 
 

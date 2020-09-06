@@ -38,13 +38,16 @@ var replyManager = (function(){
     var remove = function(obj, callback)
     {
         console.log("remove .........");
-
         $.ajax({
             type : 'delete',
-            url : '/api/replies/' + obj.replyId,
+            url : '/api/replies/' + obj.boardId + '/' + obj.replyId,
             dataType:'json',
             contentType:"application/json",
-            success:callback
+            success: callback,
+            error:function(request, error){
+                alert("댓글 삭제 에러")
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
         });
     };
 
