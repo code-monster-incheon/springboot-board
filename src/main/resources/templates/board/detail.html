@@ -95,10 +95,9 @@
     <!-- end Modal -->
 
 </div>
-</html>     <!-- 이거 없던건데 닫아도 되는건지 확인해주시면 감사합니다. -->
+</html>
 
 <!-- end fragment -->
-
 <th:block layout:fragment="script">
     <script th:inline="javascript" th:src="@{'/js/reply.js'}"></script>
     <script th:inline="javascript">
@@ -112,18 +111,23 @@
 
             // '댓글 추가' 버튼이 눌렸을 때
             var mode;
-            $("#addReplyBtn").on('click', function(){
-                console.log('click했다')
-                $("#myModal").modal("show");
-                $(".modal-title").text("댓글 추가");
-                mode="ADD";
-            });
 
             var id = [[${vo.id}]];      // 게시판 id
             var replyTextObj = $("input[name='replyText']");
             var replyerObj = $("input[name='replyer']");
 
-            // 댓글 모달에서 '저장'버튼이 눌렸을 때
+            // 댓글 추가 버튼
+            $("#addReplyBtn").on('click', function(){
+
+                $("#delModalBtn").hide();
+                $("#myModal").modal("show");
+                $(".modal-title").text("댓글 추가");
+
+                mode="ADD";
+
+            });
+
+            // 댓글 Modal 저장 버튼
             $("#modalBtn").click(function(){
 
                 var replyText = replyTextObj.val();
@@ -148,10 +152,25 @@
                 }
             });
 
+            // 댓글 Modal 삭제 버튼
+            $("#delModalBtn").click(function() {
+
+                var obj = {boardId : id, replyId : replyId};
+
+                replyManager.remove(obj, function(list) {
+                    alert("댓글이 삭제 되었습니다.")
+                    printList(list);
+                    $("#myModal").modal("hide");
+                    replyTextObj.val("");
+                    replyerObj.val("TestUser");
+                });
+            });
+
             // 댓글 수정 or 삭제를 위해 댓글 row 클릭했을 시
             var replyId;
             $("#replyTable").on("click", "tr", function(e){
                 var tds = $(this).find('td');
+                $("#delModalBtn").show();
                 console.log(tds);
 
                 replyId = tds[0].innerHTML;
@@ -163,25 +182,11 @@
                 $(".modal-title").text("댓글 수정/삭제");
             });
 
-            // 모달창에서 삭제버튼이 눌렸을 떄
-            $("#delModalBtn").on("click", function() {
-                var obj = {boardId : id, replyId : replyId};
-
-                replyManager.remove(obj, function(list) {
-                    console.log("remove 함수에서 삭제 처리는 이루어 지는데 여기 이 콘솔 조차 찍히지가 않습니다 상현님..")
-                    replyManager.getAll(id, printList);
-                    alert("댓글이 삭제되었습니다.")
-                    $("#myModal").modal("hide");
-                    replyTextObj.val("");
-                    replyerObj.val("");
-                });
-            });
-
             function afterAll(list){
                 replyManager.getAll(id, printList);
                 $("#myModal").modal("hide");
                 replyTextObj.val("");
-                replyerObj.val("");
+                replyerObj.val("TestUser");
             }
 
             function printList(list) {
@@ -206,8 +211,6 @@
                 var date = new Date(timeValue);
                 return date.getFullYear() + "-" + (date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : '0' +(date.getMonth() + 1)) + "-" + date.getDate()
             }
-
-
 
         });
     </script>
