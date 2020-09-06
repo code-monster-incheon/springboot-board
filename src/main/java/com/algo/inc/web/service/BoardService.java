@@ -8,9 +8,11 @@ import com.algo.inc.web.dto.board.BoardSaveRequestDto;
 import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
 import com.algo.inc.web.dto.reply.ReplyResponseDto;
 import com.algo.inc.web.repository.BoardRepository;
+import com.algo.inc.web.repository.CustomCrudRepository;
 import com.algo.inc.web.repository.MemberRepository;
 import com.algo.inc.web.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,12 +26,15 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Log4j2
 public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final ReplyRepository replyRepository;
     private final MemberService memberService;
+    private final CustomCrudRepository customCrudRepository;
+
     // Read All, 게시글 전체를 불러오는 메소드
     public List<BoardResponseDto> getBoardList() {
         return boardRepository
@@ -67,9 +72,9 @@ public class BoardService {
     }
 
     // Create
-    public Long registerBoard(BoardSaveRequestDto boardSaveRequestDto, UserDetails principal) {
+    public Long registerBoard(BoardSaveRequestDto boardSaveRequestDto) {
         Board board = new Board();
-        board.setMember(memberRepository.findById(principal.getUsername()).get());
+        board.setMember(memberRepository.findById("TestUser").get());
         board.setTitle(boardSaveRequestDto.getTitle());
         board.setContent(boardSaveRequestDto.getContent());
         return boardRepository.save(board).getId();
@@ -131,11 +136,13 @@ public class BoardService {
         return list;
     }
 
-    public Page<Board> getBoardPageList(BoardsPage boardsPage, Pageable page)
+    public Page<Object[]> getBoardPageList(BoardsPage boardsPage, Pageable page)
     {
-        return boardRepository.findAll(
-                boardRepository.makePredicate(boardsPage.getType(), boardsPage.getKeyword()), page
-        );
+        Page<Object[]> result = customCrudRepository.getCustomPage(boardsPage.getType(), boardsPage.getKeyword(), page);
+
+        log.info(page);
+        log.info(result);
+        return result;
     }
 
     public Board getView(Long id, BoardsPage boardsPage)
@@ -144,7 +151,7 @@ public class BoardService {
     }
 
     public void save(Board board) {
-        board.setMember(memberService.getMockUser());
+        board.setMember(memberRepository.findById("TestUser").get());
         boardRepository.save(board);
     }
 }

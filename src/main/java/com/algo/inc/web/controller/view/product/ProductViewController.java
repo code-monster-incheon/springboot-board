@@ -21,7 +21,8 @@ public class ProductViewController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public String getProductList(Model model, Product product){
+    public String getProductList(Model model, Product product)
+    {
         List<ProductResponseDto> productList = productService.getProductList("ALL");
 
         model.addAttribute("productList", productList);
@@ -29,7 +30,10 @@ public class ProductViewController {
     }
 
     @GetMapping("/detail")
-    public String getProductDetail(){
+    public String getProductDetail(Long id, Model model)
+    {
+        Product product = productService.getProductDetail(id);
+        model.addAttribute("vo", product);
         return "product/detail";
     }
 }

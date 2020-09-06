@@ -15,7 +15,8 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     // 상품리스트
-    public List<ProductResponseDto> getProductList(String command) {
+    public List<ProductResponseDto> getProductList(String command)
+    {
         List<Product> productList = new ArrayList<>();
         if(command.equals("ALL"))       // enabled 관계없이
             productList = productRepository.findAll();
@@ -32,6 +33,12 @@ public class ProductService {
             list.add(productResponseDto);
         }
         return list;
+    }
+
+    // 상품 상세 정보
+    public Product getProductDetail(Long id)
+    {
+        return productRepository.findById(id).get();
     }
 
 
