@@ -6,8 +6,6 @@ import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
 import com.algo.inc.web.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,22 +24,16 @@ public class BoardApiController {
         return boardService.getBoardList();
     }
 
-    // Read, id로 게시글 상세조회, 댓글도 같이 BoardResponseDto 안에 list로 불러오기
-    @GetMapping("/{id}")
-    public BoardResponseDto findById(@PathVariable Long id) {
-        return boardService.findById(id);
-    }
-
     // Read by memberId, 유저가 작성한 게시글 모두 불러오기
     @GetMapping("/getBoard")
     public List<BoardResponseDto> getBoardListByMember(@RequestParam("memberId") String memberId){
         return boardService.getBoardListByMember(memberId);
     }
 
-    // Create, 게시글 생성
     @PostMapping
-    public Long registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto, Authentication authentication) {
-        return boardService.registerBoard(boardSaveRequestDto, (UserDetails) authentication.getPrincipal());
+    public void registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto) {
+        log.debug("register Board.....");
+        boardService.save(boardSaveRequestDto.toEntity());
     }
 
     // Update, 게시글 수정, 세션 필요 없음

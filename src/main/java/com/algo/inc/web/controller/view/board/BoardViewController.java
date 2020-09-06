@@ -6,21 +6,17 @@ import com.algo.inc.domain.reply.Reply;
 import com.algo.inc.util.page.BoardsPage;
 import com.algo.inc.util.page.PageMaker;
 import com.algo.inc.web.repository.BoardRepository;
+import com.algo.inc.web.repository.CustomCrudRepository;
 import com.algo.inc.web.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.jws.WebResult;
-import javax.transaction.Transactional;
-import java.util.List;
 
 
 @Controller
@@ -36,9 +32,9 @@ public class BoardViewController {
     public String list(@ModelAttribute("boardsPage") BoardsPage boardsPage, Model model)
     {
         Pageable page = boardsPage.makePageable(0, "id");
-        Page<Board> result = boardService.getBoardPageList(boardsPage, page);
-
+        Page<Object[]> result = boardService.getBoardPageList(boardsPage, page);
         model.addAttribute("result", new PageMaker(result));
+
         return "board/list";
     }
 
@@ -89,13 +85,13 @@ public class BoardViewController {
         return "/board/insertBoard";
     }
 
-    @PostMapping("/insertBoard")
-    public String insertBoard(Board board, @AuthenticationPrincipal SecurityUser principal)
-    {
-        board.setMember(principal.getMember());
-        boardService.insertBoard(board);
-        return "redirect:getBoardList";
-    }
+//    @PostMapping("/insertBoard")
+//    public String insertBoard(Board board, @AuthenticationPrincipal SecurityUser principal)
+//    {
+//        board.setMember(principal.getMember());
+//        boardService.insertBoard(board);
+//        return "redirect:getBoardList";
+//    }
 
     @GetMapping("/detail")
     public String view(Long id, @ModelAttribute("boardsPage") BoardsPage boardsPage, Model model)

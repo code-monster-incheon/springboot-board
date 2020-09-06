@@ -4,19 +4,26 @@ import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.member.Member;
 import com.algo.inc.domain.member.Role;
 import com.algo.inc.domain.reply.Reply;
+import lombok.extern.java.Log;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 
 @RunWith(SpringRunner.class)
+@Log
 @SpringBootTest
 public class BoardRepositoryTest {
 
@@ -27,6 +34,8 @@ public class BoardRepositoryTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CustomCrudRepository customCrudRepository;
     // 테스트코드가 실행되기 전에 실행되는 코드
     @Before
     public void initTestMember()
@@ -123,18 +132,18 @@ public class BoardRepositoryTest {
     {
         Member member = memberRepository.findById("TestUser").get();
         List<Reply> replyList = Lists.newArrayList(
-                Reply.builder().content("댓글 내용 무....")
+                Reply.builder().content("첫 번째 댓글")
                         .member(member)
                         .board(board)
                         .build(),
 
-                Reply.builder().content("댓글 내용 무....")
+                Reply.builder().content("두 번째 댓글")
                         .member(member)
                         .board(board)
                         .build(),
 
 
-                Reply.builder().content("댓글 내용 무....")
+                Reply.builder().content("세 번째 댓글")
                         .member(member)
                         .board(board)
                         .build()
@@ -145,6 +154,19 @@ public class BoardRepositoryTest {
         return board;
     }
 
+    @Test
+    public void JpaquertTest()
+    {
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
+        String keyword = "jpa";
+        String type = "w";
+
+        Page<Object[]> result =  customCrudRepository.getCustomPage(type, keyword, pageable);
+        System.out.println("" + result);
+        System.out.println("TOTAL PAGES : " + result.getTotalPages());
+        System.out.println("TOTAL SIZE : " + result.getSize());
+        result.getContent().forEach(arr->System.out.println(Arrays.toString(arr)));
+    }
 
 
 }
