@@ -24,7 +24,7 @@
             </div>
 
             <button id="registerBtn" class="btn btn-default">Submit Button</button>
-            <button type="reset" class="btn btn-primary">Reset Button</button>
+            <button id="resetBtn" class="btn btn-primary">Reset Button</button>
         </div>
     </div>
 </div>
@@ -39,6 +39,11 @@
 
         $(document).ready(function() {
 
+            $("#resetBtn").click(function(){
+                $("textarea#textContent").val("");
+                $("input#titleInput").val("");
+            })
+
             $("#registerBtn").click(function () {
 
                 var content = $("textarea#textContent").val();
@@ -48,10 +53,11 @@
 
                 var obj = {title: title, content: content}
 
-                boardManager.register(obj, function(list){
+                boardManager.register(obj, function(){
                     alert("게시글이 추가되었습니다.");
                     $("textarea#textContent").val("");
                     $("input#titleInput").val("");
+                    window.location.href = "/view/board/list"
                 });
 
             });

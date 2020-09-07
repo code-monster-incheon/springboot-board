@@ -6,6 +6,8 @@ import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
 import com.algo.inc.web.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -31,10 +33,10 @@ public class BoardApiController {
     }
 
     @PostMapping
-    public void registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto)
+    public ResponseEntity<Void> registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto)
     {
-        log.debug("register Board.....");
         boardService.save(boardSaveRequestDto.toEntity());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // Update, 게시글 수정, 세션 필요 없음

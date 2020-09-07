@@ -5,11 +5,15 @@ var boardManager=(function(){
 
         $.ajax({
             type : 'POST',
-            url : 'http://localhost:8080/api/board',
+            url : '/api/board',
             data : JSON.stringify(obj),
-            dataType:'json',
+            dataType:'text',
             contentType:'application/json',
-            success: callback
+            success: callback,
+            error:function(request, error){
+                alert("게시판 등록 삭제 에러")
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
         });
     };
     return {
