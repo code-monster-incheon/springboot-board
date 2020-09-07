@@ -24,7 +24,6 @@ public class Product {
     private int price;
     private int quantity;
     private LocalDateTime regDt;
-
     private boolean enabled;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
