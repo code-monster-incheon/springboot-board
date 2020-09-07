@@ -5,9 +5,9 @@ var boardManager=(function(){
 
         $.ajax({
             type : 'POST',
-            url : "/api/board",
+            url : 'http://localhost:8080/api/board',
             data : JSON.stringify(obj),
-            dataType:'text',
+            dataType:'json',
             contentType:'application/json',
             success: callback
         });
@@ -15,4 +15,4 @@ var boardManager=(function(){
     return {
      register:register
     }
-})()
+})();
