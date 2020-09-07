@@ -19,13 +19,11 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-    // Read All, 게시글 전체 불러오기
     @GetMapping("/getBoardList")
     public List<BoardResponseDto> getBoardList() {
         return boardService.getBoardList();
     }
 
-    // Read by memberId, 유저가 작성한 게시글 모두 불러오기
     @GetMapping("/getBoard")
     public List<BoardResponseDto> getBoardListByMember(@RequestParam("memberId") String memberId)
     {
@@ -39,14 +37,6 @@ public class BoardApiController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // Update, 게시글 수정, 세션 필요 없음
-    @PutMapping("/{id}")
-    public void updateBoard(@PathVariable Long id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto)
-    {
-        boardService.updateBaord(id, boardUpdateRequestDto);
-    }
-
-    // Delete, 게시글 삭제, 댓글도 같이 삭제되는거 확인완료
    @DeleteMapping("/{id}")
     public void deleteBoardById(@PathVariable Long id)
    {

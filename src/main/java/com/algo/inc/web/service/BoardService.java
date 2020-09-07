@@ -80,16 +80,6 @@ public class BoardService {
         return boardRepository.save(board).getId();
     }
 
-    // Update
-    public void updateBaord(Long boardId, BoardUpdateRequestDto boardUpdateRequestDto) {
-        Board board = boardRepository.findById(boardId)
-                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글"));
-
-        board.setTitle(boardUpdateRequestDto.getTitle());
-        board.setContent(boardUpdateRequestDto.getContent());
-        boardRepository.save(board);
-    }
-
     // Delete
     public void deleteBoardById(Long id) {
         Board board = boardRepository.findById(id)

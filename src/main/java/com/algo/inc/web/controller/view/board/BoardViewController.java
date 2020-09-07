@@ -60,17 +60,6 @@ public class BoardViewController {
         return "board/register";
     }
 
-    @PostMapping("/register")
-    public String registerPOST(@ModelAttribute("board") Board board, RedirectAttributes rttr)
-    {
-        log.info("register post");
-        log.info("" + board);
-
-        boardService.save(board);
-        rttr.addFlashAttribute("msg", "success");
-        return "redirect:/view/board/list";
-    }
-
     @GetMapping("/deleteBoard")
     public String deleteBoard(Board board)
     {
@@ -83,14 +72,6 @@ public class BoardViewController {
     {
         return "/board/insertBoard";
     }
-
-//    @PostMapping("/insertBoard")
-//    public String insertBoard(Board board, @AuthenticationPrincipal SecurityUser principal)
-//    {
-//        board.setMember(principal.getMember());
-//        boardService.insertBoard(board);
-//        return "redirect:getBoardList";
-//    }
 
     @GetMapping("/detail")
     public String view(Long id, @ModelAttribute("boardsPage") BoardsPage boardsPage, Model model)

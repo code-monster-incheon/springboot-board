@@ -20,7 +20,6 @@ public class ProductApiController {
     @PostMapping
     public Long registerProduct(@RequestBody ProductSaveDto productSaveDto)
     {
-        log.debug("상품 등록해보자");
         return productService.registerProduct(productSaveDto);
     }
 

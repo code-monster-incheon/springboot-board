@@ -1,6 +1,5 @@
 package com.algo.inc.web.dto.board;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
