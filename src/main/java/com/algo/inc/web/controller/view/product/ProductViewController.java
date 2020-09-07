@@ -36,4 +36,12 @@ public class ProductViewController {
         model.addAttribute("vo", product);
         return "product/detail";
     }
+
+    @GetMapping("/register")
+    public String registerProduct()
+    {
+        return "product/register";
+    }
+
+    // TODO : 상품 등록하는 템플릿화면 구해서 적용하고 상품 등록/수정/삭제 개발하기
 }

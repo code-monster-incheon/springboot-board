@@ -1,12 +1,11 @@
 package com.algo.inc.web.controller.api.product;
 
+import com.algo.inc.web.dto.product.ProductSaveDto;
 import com.algo.inc.web.dto.product.ProductResponseDto;
 import com.algo.inc.web.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,20 +16,40 @@ import java.util.List;
 public class ProductApiController {
     private final ProductService productService;
 
-    // 판매가능한 상품 리스트, enabled 가 true인 상품들만
+    // Create, 상품등록하기
+    @PostMapping
+    public Long registerProduct(@RequestBody ProductSaveDto productSaveDto)
+    {
+        log.debug("상품 등록해보자");
+        return productService.registerProduct(productSaveDto);
+    }
+
+    // Read Selling Product, 판매가능한 상품 리스트, enabled 가 true인 상품들만
     @GetMapping("/getProductList")
-    public List<ProductResponseDto> getProductList(){
+    public List<ProductResponseDto> getProductList()
+    {
         return productService.getProductList("SELL");
     }
 
-    // db에 존재하는 모든 상품의 목록
+    // Read All, db에 존재하는 모든 상품의 목록
     @GetMapping("/lists")
-    public List<ProductResponseDto> getLists(){
+    public List<ProductResponseDto> getLists()
+    {
         return productService.getProductList("ALL");
     }
 
-    // 김종범 TODO - 1 : 댓글 수정, 삭제 javascript
-    // 김종범 TODO - 2 : 상품 상세받아오는 api, 상품 삭제를 enabled false로 변경
-    // 김종범 TODO - 3 : querydsl 빨간줄 해결하기
+    // Update, 상품 등록정보 수정하기
+    @PutMapping("/{productId}")
+    public Long updateProductInfo(@PathVariable Long productId, @RequestBody ProductSaveDto productSaveDto)
+    {
+        return productService.updateProductInfo(productId, productSaveDto);
+    }
+
+    // Delete, 상품 삭제하기
+    @DeleteMapping("/{productId}")
+    public void deleteProduct(@PathVariable Long productId)
+    {
+        productService.deleteProduct(productId);
+    }
 
 }
