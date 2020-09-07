@@ -37,13 +37,13 @@ public class BoardViewController {
         return "board/list";
     }
 
-//    @GetMapping("/getBoardList")
-//    public String getBoardList(Model model, Board board)
-//    {
-//        Page<Board> boardList = boardService.getViewBoardList(board);
-//        model.addAttribute("boardList", boardList);
-//        return "board/getBoardList";
-//    }
+    @GetMapping("/getBoardList")
+    public String getBoardList(Model model, Board board)
+    {
+        Page<Board> boardList = boardService.getViewBoardList(board);
+        model.addAttribute("boardList", boardList);
+        return "board/getBoardList";
+    }
 
     @GetMapping("/getBoard")
     public String getBoard(Board board, Model model)
