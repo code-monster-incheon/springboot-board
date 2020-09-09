@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<head>
+    <title>나의 주문 정보</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<div layout:fragment="content">
+    나의 주문 정보 <br><br>
+
+    <label>상품 ID : </label>
+    <input name="id" th:value="${vo.id}" readonly="readonly"/> <br>
+
+    <label>상품 이름 : </label>
+    <input name="name" th:value="${vo.name}" readonly="readonly"/><br>
+
+    <label>상품 가격 : </label>
+    <input name="price" th:value="${vo.price}" readonly="readonly"/><br><br>
+
+    주문하시겠습니까? <a type="button" th:href="@{ordercomplete}">네</a>
+</div>
+
+</html>
