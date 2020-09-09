@@ -33,8 +33,28 @@
             <input class="form-control" name="cnt" th:value="${vo.quantity}" readonly="readonly"/>
         </div>
 
+        <h3><a th:href="@{/view/order/speedorder}" th:value="${vo.id}" class="speedorderLink">주문하기</a> &nbsp;&nbsp;
+            <a th:href="@{/view/basket/basketorder}">장바구니</a></h3>
+
     </div>
+
+    <form id ='f1'  method="get" accept-charset="UTF-8">
 </div>
 
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var formObj = $("#f1");
+
+            $(".speedorderLink").click(function(e){
+                e.preventDefault();
+                var productNo = $(this).attr("value");
+                formObj.attr("action", [[@{'/view/order/speedorder'}]]);
+                formObj.append("<input type='hidden' name='id' value='" + productNo + "'>");
+                formObj.submit();
+            });
+        });
+    </script>
+</th:block>
 
 </html>
