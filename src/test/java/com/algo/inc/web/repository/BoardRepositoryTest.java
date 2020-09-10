@@ -125,7 +125,6 @@ public class BoardRepositoryTest {
 
             memberRepository.save(member);
         }
-        //TODO : 댓글도 같이 생성시키기
     }
 
     private Board initReply(Board board)
@@ -167,6 +166,5 @@ public class BoardRepositoryTest {
         System.out.println("TOTAL SIZE : " + result.getSize());
         result.getContent().forEach(arr->System.out.println(Arrays.toString(arr)));
     }
-
 
 }
