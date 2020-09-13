@@ -5,10 +5,8 @@ import com.algo.inc.domain.orderProductMap.OrderProductMap;
 import com.algo.inc.domain.product.Product;
 import com.algo.inc.web.dto.orders.OrderRequestParam;
 import com.algo.inc.web.repository.MemberRepository;
-import com.algo.inc.web.repository.OrderRepository;
 import com.algo.inc.web.repository.ProductOrderRepository;
 import com.algo.inc.web.repository.ProductRepository;
-import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +30,14 @@ public class OrderService {
         List<OrderProductMap> orderProductMapLists = new ArrayList<>();
 
         ProductOrder productOrder = new ProductOrder();
-        productOrder.setMember(memberRepository.findById("TestUser").get());
-
+        // param : 주문한 상품들의 리스트
         for (OrderRequestParam order : param)
         {
+           // 상품들 하나씩 데이터베이스에서 가져온다 없는 아이디면 에러 뱉고 리턴
+           // 주문한 상품 하나씩 작업한다.
            Product product = productRepository.findById(order.getProdId())
                             .orElseThrow(()-> new IllegalArgumentException("없는 상품 ID 입니다."));
-
+           // order.getCnt() : 주문 , product.getQuantity() : 디비에 있는 상품의 재고개수
            if (order.getCnt() > product.getQuantity())
            {
                // 주문한 상품의 개수가 기존 상품의 개수보다 많으면 에러 날림
@@ -62,6 +61,7 @@ public class OrderService {
         }
 
         productOrder.setOrderProductMapList(orderProductMapLists);
+        productOrder.setMember(memberRepository.findById("TestUser").get());
 
         // 한번에 save 하여 orderProductMap 에 대한 save를 따로 하지 않는다. cascade= CasacadeType.ALL
         productOrderRepository.save(productOrder);
