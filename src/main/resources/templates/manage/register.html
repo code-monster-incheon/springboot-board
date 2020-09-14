@@ -77,7 +77,8 @@
 
         $(document).ready(function() {
 
-            $("#resetBtn").click(function(){
+            $("#resetBtn").click(function()
+            {
                 $("input#name").val("");
                 $("input#price").val(0);
                 $("input#cnt").val(0);
@@ -91,7 +92,9 @@
                 var price = $("input#price").val();
                 var quantity = $("input#cnt").val();
                 var enabled;
-                if($("input:checkbox[id='enabled']").is(":checked") == true){
+
+                if ($("input:checkbox[id='enabled']").is(":checked") == true)
+                {
                     enabled = true;
                 }
                 else{
@@ -99,9 +102,11 @@
                 }
 
                 console.log('출력', 'name : ', name, 'price : ', price, 'quantity : ', quantity, 'enabled : ', enabled);
+
                 var obj = {name:name, price:price, quantity:quantity, enabled:enabled}
 
-                productManager.register(obj, function(){
+                productManager.register(obj, function()
+                {
                     alert("상품이 등록되었습니다.");
                     $("input#name").val("");
                     $("input#price").val(0);

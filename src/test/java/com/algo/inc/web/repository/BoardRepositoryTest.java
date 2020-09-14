@@ -2,6 +2,7 @@ package com.algo.inc.web.repository;
 
 import com.algo.inc.domain.board.Board;
 import com.algo.inc.domain.member.Member;
+import com.algo.inc.domain.member.MemberRole;
 import com.algo.inc.domain.member.Role;
 import com.algo.inc.domain.reply.Reply;
 import lombok.extern.java.Log;
@@ -29,21 +30,27 @@ public class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
+
     @Autowired
     private MemberRepository memberRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private CustomCrudRepository customCrudRepository;
-    // 테스트코드가 실행되기 전에 실행되는 코드
+
     @Before
     public void initTestMember()
     {
         Member member = new Member();
         member.setId("TestUser");
         member.setEnabled(true);
-        member.setRole(Role.ROLE_MEMBER);
+        member.setPassword(passwordEncoder.encode("TestUser"));
+        MemberRole memberRole = new MemberRole();
+        memberRole.setRoleName(Role.ADMIM.getRoleName());
+        member.setRoles(Lists.newArrayList(memberRole));
+        member.setReplyList(Lists.newArrayList());
         member.setEmail("test@test.com");
         member.setName("TestUser");
         memberRepository.save(member);
@@ -52,33 +59,36 @@ public class BoardRepositoryTest {
     @Test
     public void initMemberAndBoard()
     {
+        MemberRole memberRole = new MemberRole();
+        memberRole.setRoleName(Role.ADMIM.getRoleName());
+        List<MemberRole> roles = Lists.newArrayList(memberRole);
         List<Member> initMembers = Lists.newArrayList(
                 Member.builder()
                         .id("spring")
                         .name("spring")
                         .password(passwordEncoder.encode("spring"))
-                        .role(Role.ROLE_ADMIN)
+                        .roles(roles)
                         .build()
                 ,
                 Member.builder()
                         .id("java")
                         .name("java")
                         .password(passwordEncoder.encode("java"))
-                        .role(Role.ROLE_MEMBER)
+                        .roles(roles)
                         .build()
                 ,
                 Member.builder()
                         .id("jpa")
                         .name("jpa")
                         .password(passwordEncoder.encode("jpa"))
-                        .role(Role.ROLE_MEMBER)
+                        .roles(roles)
                         .build()
                 ,
                 Member.builder()
                         .id("boot")
                         .name("boot")
                         .password(passwordEncoder.encode("boot"))
-                        .role(Role.ROLE_MANAGER)
+                        .roles(roles)
                         .build()
         );
 
@@ -153,7 +163,7 @@ public class BoardRepositoryTest {
     }
 
     @Test
-    public void JpaquertTest()
+    public void JpaqueryTest()
     {
         Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
         String keyword = "jpa";
@@ -166,4 +176,34 @@ public class BoardRepositoryTest {
         result.getContent().forEach(arr->System.out.println(Arrays.toString(arr)));
     }
 
+    @Test
+    public void 멤버_생성_테스트()
+    {
+        for (int i = 0; i <= 100; i++)
+        {
+            Member member = new Member();
+            member.setId("user" + i);
+            String pw = passwordEncoder.encode("pw"+i);
+            member.setPassword(pw);
+            member.setName("사용자"  + i);
+
+            MemberRole role =new MemberRole();
+            if ( i <= 80)
+            {
+                role.setRoleName(Role.GUEST.getRoleName());
+            }
+            else if (i <= 90)
+            {
+                role.setRoleName(Role.MANGER.getRoleName());
+            }
+            else
+            {
+                role.setRoleName(Role.ADMIM.getRoleName());
+            }
+
+            member.setRoles(Arrays.asList(role));
+            memberRepository.save(member);
+        }
+
+    }
 }

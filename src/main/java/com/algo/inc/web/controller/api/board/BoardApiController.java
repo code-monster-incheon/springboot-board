@@ -2,7 +2,6 @@ package com.algo.inc.web.controller.api.board;
 
 import com.algo.inc.web.dto.board.BoardResponseDto;
 import com.algo.inc.web.dto.board.BoardSaveRequestDto;
-import com.algo.inc.web.dto.board.BoardUpdateRequestDto;
 import com.algo.inc.web.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,8 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @GetMapping("/getBoardList")
-    public List<BoardResponseDto> getBoardList() {
+    public List<BoardResponseDto> getBoardList()
+    {
         return boardService.getBoardList();
     }
 
@@ -33,11 +33,11 @@ public class BoardApiController {
     @PostMapping
     public ResponseEntity<Void> registerBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto)
     {
-        boardService.save(boardSaveRequestDto.toEntity());
+        boardService.registerBoard(boardSaveRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-   @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteBoardById(@PathVariable Long id)
    {
         boardService.deleteBoardById(id);

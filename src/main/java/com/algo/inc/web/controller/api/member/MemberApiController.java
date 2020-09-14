@@ -14,7 +14,6 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-
     @PostMapping
     public boolean memberLogin(@RequestBody MemberLoginRequestDto memberLoginRequestDto){
         return memberService.memberLogin(memberLoginRequestDto);

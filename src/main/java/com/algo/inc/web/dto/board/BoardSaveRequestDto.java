@@ -12,7 +12,7 @@ public class BoardSaveRequestDto {
 
     private String title;
     private String content;
-
+    private String id;
     public Board toEntity()
     {
         return Board.builder().title(title).content(content).build();

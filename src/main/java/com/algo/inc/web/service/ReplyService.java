@@ -10,6 +10,7 @@ import com.algo.inc.web.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class ReplyService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-    // Create, 댓글 생성 : boardId, 댓글 내용, 유저 정보가 필요함
+    @Transactional
     public Long registerReply(Long boardId, ReplySaveRequestDto replySaveRequestDto) {
         // 존재하는 게시판인지 먼저 확인, 댓글 작성하려는 찰나에 게시글이 삭제될 수 있으므로
         Board board = boardRepository.findById(boardId)
@@ -30,8 +31,11 @@ public class ReplyService {
         Reply reply = new Reply();
         reply.setContent(replySaveRequestDto.getContent());
         reply.setBoard(board);
-        reply.setMember(memberRepository.findById("TestUser").get());
-        return replyRepository.save(reply).getId();
+        reply.setMember(memberRepository.findById(replySaveRequestDto.getUserId()).get());
+
+        board.getReplyList().add(reply);
+
+        return boardRepository.save(board).getId();
     }
 
     // Read, 게시글 내에 존재하는 모든 댓글 불러오기
@@ -70,7 +74,7 @@ public class ReplyService {
         return replyResponseDto;
     }
 
-    // Update
+    @Transactional
     public Long updateReply(Long replyId, ReplySaveRequestDto replySaveRequestDto) {
         Reply reply = replyRepository
                 .findById(replyId)

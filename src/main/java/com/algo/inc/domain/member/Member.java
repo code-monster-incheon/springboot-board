@@ -30,8 +30,9 @@ public class Member extends BaseTimeEntity {
     private String isAuthEmail;
     private boolean enabled;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="member")
+    private List<MemberRole> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> boardList;
@@ -46,11 +47,11 @@ public class Member extends BaseTimeEntity {
     private List<ProductOrder> productOrderList;
 
     @Builder
-    public Member(String id, String name, String password, Role role)
+    public Member(String id, String name, String password, List<MemberRole> roles)
     {
         this.id = id;
         this.password = password;
         this.name = name;
-        this.role = role;
+        this.roles = roles;
     }
 }

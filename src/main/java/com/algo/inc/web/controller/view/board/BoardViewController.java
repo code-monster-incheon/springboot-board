@@ -1,6 +1,7 @@
 package com.algo.inc.web.controller.view.board;
 
 import com.algo.inc.domain.board.Board;
+import com.algo.inc.domain.member.Role;
 import com.algo.inc.util.page.BoardsPage;
 import com.algo.inc.util.page.PageMaker;
 import com.algo.inc.web.repository.BoardRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,21 +58,7 @@ public class BoardViewController {
     @GetMapping("/register")
     public String registerGET(@ModelAttribute("board") Board board)
     {
-        log.info("register get");
         return "board/register";
-    }
-
-    @GetMapping("/deleteBoard")
-    public String deleteBoard(Board board)
-    {
-        boardService.deleteBoard(board);
-        return "redirect:getBoardList";
-    }
-
-    @GetMapping("/insertBoard")
-    public String insertBoardView()
-    {
-        return "/board/insertBoard";
     }
 
     @GetMapping("/detail")
@@ -84,11 +72,13 @@ public class BoardViewController {
         return "board/detail";
     }
 
+    @Secured(value = {"ROLE_GUEST", "ROLE_MANAGER", "ROLE_ADMIN"})
     @PostMapping("/modify")
     public String modifyPost(Board board, BoardsPage boardsPage, RedirectAttributes rttr)
     {
 
-        boardRepository.findById(board.getId()).ifPresent(origin->{
+        boardRepository.findById(board.getId()).ifPresent(origin->
+        {
             origin.setTitle(board.getTitle());
             origin.setContent(board.getContent());
             boardRepository.save(origin);
@@ -104,9 +94,11 @@ public class BoardViewController {
         return "redirect:/view/board/detail";
     }
 
+    @Secured(value = {"ROLE_GUEST", "ROLE_MANAGER", "ROLE_ADMIN"})
     @GetMapping("/modify")
     public String modify(Long id, @ModelAttribute("boardsPage") BoardsPage boardsPage, Model model)
     {
+        System.out.println("!!!!!!");
         log.debug("size : ", boardsPage.getSize());
         log.debug("page : ", boardsPage.getPage());
 
@@ -114,6 +106,7 @@ public class BoardViewController {
         return "board/modify";
     }
 
+    @Secured(value = {"ROLE_GUEST", "ROLE_MANAGER", "ROLE_ADMIN"})
     @PostMapping("/delete")
     public String delete(Long id, BoardsPage boardsPage, RedirectAttributes rttr)
     {

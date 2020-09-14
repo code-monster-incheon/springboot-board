@@ -1,32 +1,46 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>
-        시큐리티 테스트
-    </title>
-</head>
-<body th:align="center">
-<h1>로그인</h1>
-<form method="post">
-    <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">
-        <tr>
-            <td bgcolor="#faebd7">아이디</td>
-            <td><input type="text" name="username"/> </td>
-        </tr>
 
-        <tr>
-            <td bgcolor="#f0e68c">비밀번호</td>
-            <td><input type="password" name="password"/> </td>
-        </tr>
 
-        <tr>
-            <td colspan="2" align="center">
-                <input type="submit" value="로그인"/>
-            </td>
-        </tr>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
 
-    </table>
-</form>
-</body>
-</html>
+<div layout:fragment="content">
+    <div class="panel-heading">Login Page</div>
+    <div class="panel-body">
+
+        <div th:if="${param.error != null}">
+            <h2>아이디가 또는 비밀번호가 올바르지 않습니다.</h2>
+            <h2 th:value="${param.error}"></h2>
+        </div>
+
+        <div th:if="${param.logout != null}">
+            <h2>로그아웃이 되었습니다.</h2>
+        </div>
+
+        <div class="container">
+            <form method="post">
+                <p>
+                    <label for="username">Username</label><input type="text" id="username" name="username"/>
+                </p>
+
+                <p>
+                    <label for="password">password</label><input type="password" id="password" name="password"/>
+                </p>
+
+                <p>
+                    <label>로그인 유지하기</label><input type="checkbox" id="remember-me" name="remember-me"/>
+                </p>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn">Log in</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- end fragment -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+    </script>
+</th:block>

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,27 +20,28 @@ public class ReplyApiController {
 
     private final ReplyService replyService;
 
-    @PostMapping("/{boardId}")
-    public Long registerReply(
-            @PathVariable Long boardId,
-            @RequestBody ReplySaveRequestDto replySaveRequestDto)
+    @Secured(value = {"ROLE_GUEST", "ROLE_MANAGER", "ROLE_ADMIN"})
+    @PostMapping("/{id}")
+    public Long registerReply(@PathVariable Long id, @RequestBody ReplySaveRequestDto replySaveRequestDto)
     {
-        log.info("registerReply : {}", boardId);
-        return replyService.registerReply(boardId, replySaveRequestDto);
+        log.info("registerReply : {}", id);
+        return replyService.registerReply(id, replySaveRequestDto);
     }
 
-    @GetMapping("/{boardId}")
-    public List<ReplyResponseDto> findReplyOnPost(@PathVariable Long boardId)
+    @GetMapping("/{id}")
+    public List<ReplyResponseDto> findReplyOnPost(@PathVariable Long id)
     {
-        return replyService.findReplyOnPost(boardId);
+        return replyService.findReplyOnPost(id);
     }
 
+    @Secured(value = {"ROLE_GUEST", "ROLE_MANAGER", "ROLE_ADMIN"})
     @PutMapping("/{replyId}")
     public Long updateReply(@PathVariable Long replyId, @RequestBody ReplySaveRequestDto replySaveRequestDto)
     {
         return replyService.updateReply(replyId,replySaveRequestDto);
     }
 
+    @Secured(value = {"ROLE_GUEST", "ROLE_MANAGER", "ROLE_ADMIN"})
     @DeleteMapping("/{boardId}/{replyId}")
     public ResponseEntity<List<ReplyResponseDto>> deleteReply(@PathVariable Long replyId, @PathVariable Long boardId)
     {

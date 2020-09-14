@@ -37,16 +37,16 @@ public class ProductApiController {
         return productService.getProductList("ALL");
     }
 
-    @PutMapping("/{productId}")
-    public Long updateProductInfo(@PathVariable Long productId, @RequestBody ProductSaveDto productSaveDto)
+    @PutMapping("/{id}")
+    public Long updateProductInfo(@PathVariable Long id, @RequestBody ProductSaveDto productSaveDto)
     {
-        return productService.updateProductInfo(productId, productSaveDto);
+        return productService.updateProductInfo(id, productSaveDto);
     }
 
-    @DeleteMapping("/{productId}")
-    public void deleteProduct(@PathVariable Long productId)
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id)
     {
-        productService.deleteProduct(productId);
+        productService.deleteProduct(id);
     }
 
 }

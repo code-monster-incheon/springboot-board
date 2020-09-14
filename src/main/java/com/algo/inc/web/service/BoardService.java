@@ -1,6 +1,7 @@
 package com.algo.inc.web.service;
 
 import com.algo.inc.domain.board.Board;
+import com.algo.inc.domain.member.Member;
 import com.algo.inc.domain.reply.Reply;
 import com.algo.inc.util.page.BoardsPage;
 import com.algo.inc.web.dto.board.BoardResponseDto;
@@ -71,15 +72,6 @@ public class BoardService {
         return boardResponseDto;
     }
 
-    // Create
-    public Long registerBoard(BoardSaveRequestDto boardSaveRequestDto) {
-        Board board = new Board();
-        board.setMember(memberRepository.findById("TestUser").get());
-        board.setTitle(boardSaveRequestDto.getTitle());
-        board.setContent(boardSaveRequestDto.getContent());
-        return boardRepository.save(board).getId();
-    }
-
     // Delete
     public void deleteBoardById(Long id) {
         Board board = boardRepository.findById(id)
@@ -87,26 +79,12 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    public Page<Board> getAllBoardList()
-    {
-        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
-        return boardRepository.findAll(pageable);
-    }
-
-
     public Board getBoard(Board board) {
         return boardRepository.findById(board.getId()).get();
     }
 
-    public void deleteBoard(Board board) {
-        boardRepository.deleteById(board.getId());
-    }
-
-    public void insertBoard(Board board) {
-        boardRepository.save(board);
-    }
-
-    public Page<Board> getViewBoardList(Board board) {
+    public Page<Board> getViewBoardList(Board board)
+    {
         Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "id");
         return boardRepository.getAllBoardList(pageable);
     }
@@ -126,6 +104,28 @@ public class BoardService {
         return list;
     }
 
+    public void registerBoard(BoardSaveRequestDto requestDto)
+    {
+        log.info("service : registerBoard");
+
+        Member member = memberRepository.findById(requestDto.getId())
+                .orElseThrow(()->new IllegalArgumentException("없는 사용자 입니다."));
+
+        Board insertBoard = Board.builder()
+                .content(requestDto.getContent())
+                .title(requestDto.getTitle())
+                .member(member)
+                .build();
+
+        boardRepository.save(insertBoard);
+    }
+
+    // VIEW SERVICE
+    public Board getView(Long id, BoardsPage boardsPage)
+    {
+        return boardRepository.findById(id).get();
+    }
+
     public Page<Object[]> getBoardPageList(BoardsPage boardsPage, Pageable page)
     {
         Page<Object[]> result = customCrudRepository.getCustomPage(boardsPage.getType(), boardsPage.getKeyword(), page);
@@ -133,15 +133,5 @@ public class BoardService {
         log.info(page);
         log.info(result);
         return result;
-    }
-
-    public Board getView(Long id, BoardsPage boardsPage)
-    {
-        return boardRepository.findById(id).get();
-    }
-
-    public void save(Board board) {
-        board.setMember(memberRepository.findById("TestUser").get());
-        boardRepository.save(board);
     }
 }

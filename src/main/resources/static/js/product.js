@@ -10,7 +10,8 @@ var productManager = (function(){
             dataType:'text',
             contentType:'application/json',
             success: callback,
-            error:function(request, error){
+            error:function(request, error)
+            {
                 alert("상품 등록 에러")
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }

@@ -16,6 +16,10 @@ var replyManager = (function(){
             url : '/api/replies/' + obj.id,
             data : JSON.stringify(obj),
             dataType:'json',
+            beforeSend : function(xhr)
+            {
+                xhr.setRequestHeader(obj.csrf.headerName, obj.csrf.token);
+            },
             contentType:"application/json",
             success:callback
         });

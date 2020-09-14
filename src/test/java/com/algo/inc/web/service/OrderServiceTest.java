@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -21,7 +22,8 @@ public class OrderServiceTest {
 
     @Test
     @Transactional
-    public void 상품_2개_주문_테스트() throws Exception {
+    public void 상품_2개_주문_테스트() throws Exception
+    {
         List<OrderRequestParam> param = new ArrayList<>();
 
         OrderRequestParam orderRequestParam1 = new OrderRequestParam(1L, 2);

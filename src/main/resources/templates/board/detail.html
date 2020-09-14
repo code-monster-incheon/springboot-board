@@ -1,12 +1,15 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-e0xtras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{/layout/layout1}">
 
 <div layout:fragment="content">
+    <!-- csrf 토큰이 처리 되도록 의미 없는 태그 추가 -->
+    <form th:action="${'/login'}"></form>
     <div class="panel-heading">게시글 상세</div>
     <div class="panel-body">
-
+        <h3 sec:authentication="name">Spring Security</h3>
         <div class="form-group">
             <label>ID</label>
             <input class="form-control" name="id" th:value="${vo.id}" readonly="readonly"/>
@@ -33,14 +36,15 @@
                    readonly="readonly"/>
         </div>
 
-        <div class="pull-right">
-            <a th:href="@{modify(
+        <div class="pull-right"
+            th:with= "id = ${#authentication.principal} eq 'anonymousUser' ? 'LogedUser' : ${#authentication.principal.member.id}" >
+            <a th:if = "${id} eq ${vo.member.id}"
+                    th:href="@{modify(
                 page=${boardsPage.page},
                 size=${boardsPage.size},
                 type=${boardsPage.type},
                 keyword=${boardsPage.keyword},
-                id=${vo.id})}" class="btn btn-default"
-            >
+                id=${vo.id})}" class="btn btn-default">
                 수정하기 / 삭제하기
             </a>
 
@@ -81,7 +85,7 @@
                     <label>댓글 내용</label>
                     <input type="text" class="form-control" name='replyText'>
                     <label>댓글 작성자</label>
-                    <input type="text" class="form-control" name='replyer' value = "TestUser" readonly="readonly">
+                    <input type="text" class="form-control" name='replyer'  readonly="readonly">
                 </div>
 
                 <div class="modal-footer">
@@ -104,21 +108,32 @@
 
         $(document).ready(function(e){
 
+            // 유저 아이디
+            var userid = [[${#authentication.principal} eq 'anonymousUser' ? null : ${#authentication.principal.member.id}]];
+            var csrf = JSON.parse('[[${_csrf}]]');
+            var id = [[${vo.id}]];      // 게시판 id
+            var replyTextObj = $("input[name='replyText']");
+            var replyerObj = $("input[name='replyer']");
+            var mode;
+
             (function(){
                 // 댓글 가져오기
                 replyManager.getAll([[${vo.id}]], printList);
             })();
 
-            // '댓글 추가' 버튼이 눌렸을 때
-            var mode;
-
-            var id = [[${vo.id}]];      // 게시판 id
-            var replyTextObj = $("input[name='replyText']");
-            var replyerObj = $("input[name='replyer']");
-
             // 댓글 추가 버튼
             $("#addReplyBtn").on('click', function(){
 
+                if (userid == null)
+                {
+                    if(confirm("로그인 할까요?"))
+                    {
+                        self.location = [[@{/system/login}]];
+                    }
+                    return ;
+                }
+
+                replyerObj.val(userid);
                 $("#delModalBtn").hide();
                 $("#myModal").modal("show");
                 $(".modal-title").text("댓글 추가");
@@ -135,7 +150,7 @@
 
                 if (mode == 'ADD')
                 {
-                    var obj = {content : replyText, id : id};
+                    var obj = {content : replyText, id : id, userId : userid, csrf : csrf};
 
                     replyManager.add(obj, function(list){
                         alert("새로운 댓글이 추가되었습니다.");
