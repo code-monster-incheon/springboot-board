@@ -141,7 +141,6 @@ public class BoardRepositoryTest {
                         .board(board)
                         .build(),
 
-
                 Reply.builder().content("세 번째 댓글")
                         .member(member)
                         .board(board)

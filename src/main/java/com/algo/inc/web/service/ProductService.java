@@ -32,6 +32,7 @@ public class ProductService {
             productResponseDto.setName(productList.get(i).getName());
             productResponseDto.setPrice(productList.get(i).getPrice());
             productResponseDto.setQuantity(productList.get(i).getQuantity());
+            productResponseDto.setEnabled(productList.get(i).isEnabled());
             list.add(productResponseDto);
         }
         return list;
@@ -44,25 +45,25 @@ public class ProductService {
     }
 
     // 상품 등록하기
-    public Long registerProduct(ProductSaveDto productSaveDto) {
+    public void registerProduct(ProductSaveDto productSaveDto) {
         Product product = new Product();
         product.setName(productSaveDto.getName());
         product.setPrice(productSaveDto.getPrice());
         product.setQuantity(productSaveDto.getQuantity());
         product.setRegDt(LocalDateTime.now());
         product.setEnabled(productSaveDto.isEnabled());
-        return productRepository.save(product).getId();
+        productRepository.save(product);
     }
 
     // 상품정보 수정하기
-    public Long updateProductInfo(Long productId, ProductSaveDto productSaveDto)
+    public void updateProductInfo(Long productId, ProductSaveDto productSaveDto)
     {
         Product product = productRepository.findById(productId).get();
         product.setName(productSaveDto.getName());
         product.setPrice(productSaveDto.getPrice());
         product.setQuantity(productSaveDto.getQuantity());
         product.setEnabled(productSaveDto.isEnabled());
-        return productRepository.save(product).getId();
+        productRepository.save(product);
     }
 
     // 상품 삭제하기

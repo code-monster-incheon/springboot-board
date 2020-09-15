@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ProductViewController {
     @GetMapping("/list")
     public String getProductList(Model model, Product product)
     {
-        List<ProductResponseDto> productList = productService.getProductList("ALL");
+        List<ProductResponseDto> productList = productService.getProductList("SELL");
 
         model.addAttribute("productList", productList);
         return "product/list";
@@ -37,11 +38,27 @@ public class ProductViewController {
         return "product/detail";
     }
 
-    @GetMapping("/register")
-    public String registerProduct()
+    @GetMapping("/manage/list")
+    public String getProductListAll(Model model, Product product)
     {
-        return "product/register";
+        List<ProductResponseDto> productList = productService.getProductList("ALL");
+        model.addAttribute("productList", productList);
+        return "manage/list";
     }
 
-    // TODO : 상품 등록하는 템플릿화면 구해서 적용하고 상품 등록/수정/삭제 개발하기
+    @GetMapping("/manage/detail")
+    public String getProductInfo(Long id, Model model)
+    {
+        Product product = productService.getProductDetail(id);
+        model.addAttribute("vo", product);
+        return "manage/detail";
+    }
+
+    @GetMapping("/manage/register")
+    public String registerProduct(@ModelAttribute("product") Product product)
+    {
+        return "manage/register";
+    }
+
+
 }
