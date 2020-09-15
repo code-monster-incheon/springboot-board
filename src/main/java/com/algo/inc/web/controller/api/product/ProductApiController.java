@@ -5,6 +5,8 @@ import com.algo.inc.web.dto.product.ProductResponseDto;
 import com.algo.inc.web.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +19,10 @@ public class ProductApiController {
     private final ProductService productService;
 
     @PostMapping
-    public Long registerProduct(@RequestBody ProductSaveDto productSaveDto)
+    public ResponseEntity<Void> registerProduct(@RequestBody ProductSaveDto productSaveDto)
     {
-        return productService.registerProduct(productSaveDto);
+        productService.registerProduct(productSaveDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/getProductList")
@@ -35,9 +38,10 @@ public class ProductApiController {
     }
 
     @PutMapping("/{productId}")
-    public Long updateProductInfo(@PathVariable Long productId, @RequestBody ProductSaveDto productSaveDto)
+    public ResponseEntity<Void> updateProductInfo(@PathVariable Long productId, @RequestBody ProductSaveDto productSaveDto)
     {
-        return productService.updateProductInfo(productId, productSaveDto);
+        productService.updateProductInfo(productId, productSaveDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{productId}")

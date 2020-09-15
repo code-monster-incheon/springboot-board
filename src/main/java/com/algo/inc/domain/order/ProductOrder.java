@@ -1,6 +1,5 @@
 package com.algo.inc.domain.order;
 
-import com.algo.inc.domain.BaseTimeEntity;
 import com.algo.inc.domain.member.Member;
 import com.algo.inc.domain.orderProductMap.OrderProductMap;
 import lombok.Getter;
@@ -9,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -16,10 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @ToString(exclude = {"member", "orderProductMapList"})
-public class ProductOrder extends BaseTimeEntity {
+public class ProductOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private LocalDateTime regDt;
 
     @ManyToOne
     @JoinColumn(name="member_id", nullable = false)

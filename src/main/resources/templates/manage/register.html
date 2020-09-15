@@ -1,0 +1,142 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<head>
+    <title>관리자 권한</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css"></link>
+</head>
+
+<div layout:fragment="content">
+    <div class="panel-body">
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+
+                <!--/span-->
+                <div class="span9" id="content">
+                    <div class="row-fluid">
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h4>상품 등록</h4>
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <div class="table-responsive">
+                            <table class="table">
+
+                                <tr>
+                                    <th class="success">상품명</th>
+                                    <td colspan="10"><input type="text" name="name" id="name" th:value="${product.name}"/></td>
+                                </tr>
+
+                                <tr>
+                                    <th>판매가</th><td><input type="number" name="price1"  id="price" min="0" th:value="${product.price}"/></td>
+                                    <th>재고</th><td><input type="number" name="cnt"  id="cnt" min="0" th:value="${product.quantity}"/></td>
+                                </tr>
+
+                                <tr>
+                                    <th>판매여부</th><td colspan="3"><input type="checkbox" name="enabled" id="enabled" checked="checked" th:checked="${product.enabled}"/></td>
+                                </tr>
+
+                                <tr>
+                                    <th>상품 이미지</th>
+                                    <td colspan="5">
+                                        <input type="file" id="image" accept="image/*" onchange="setThumbnail(event);" multiple/>
+                                        <div id="image_container"></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                        <div class="text-center">
+                            <button id="registerBtn" class="btn btn-success">등록</button>
+                            <button id="resetBtn" class="btn btn-warning">취소</button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <hr>
+
+    </div>
+</div>
+
+
+<script>
+    function setThumbnail(event) {
+        for (var image of event.target.files) {
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                var img = document.createElement("img");
+                img.setAttribute("src", event.target.result);
+                document.querySelector("div#image_container").appendChild(img);
+            };
+
+            console.log(image);
+            reader.readAsDataURL(image);
+        }
+    }
+</script>
+
+<!--/.fluid-container-->
+<script src="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+<script src="../../Bootstrap-Admin/vendors/jquery-1.9.1.min.js"></script>
+<script src="../../Bootstrap-Admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
+<script src="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript" th:src="@{'/js/product.js'}"></script>
+    <script th:inline="javascript">
+
+        $(document).ready(function() {
+
+            $("#resetBtn").click(function(){
+                $("input#name").val("");
+                $("input#price").val(0);
+                $("input#cnt").val(0);
+                $("input#enabled").attr('checked', false);
+            });
+
+            $("#registerBtn").click(function () {
+
+                var name = $("input#name").val();
+                var price = $("input#price").val();
+                var quantity = $("input#cnt").val();
+                var enabled;
+                if($("input:checkbox[id='enabled']").is(":checked") == true){
+                    enabled = true;
+                }
+                else{
+                    enabled = false;
+                }
+
+                console.log('출력', 'name : ', name, 'price : ', price, 'quantity : ', quantity, 'enabled : ', enabled);
+                var obj = {name:name, price:price, quantity:quantity, enabled:enabled}
+
+                productManager.register(obj, function(){
+                    alert("상품이 등록되었습니다.");
+                    $("input#name").val("");
+                    $("input#price").val(0);
+                    $("input#cnt").val(0);
+                    $("input#enabled").attr('checked', false);
+                    window.location.href = "/view/product/manage/list"
+                });
+
+            });
+
+        });
+    </script>
+
+</html>

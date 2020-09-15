@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<head>
+    <title>관리자 권한</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<div layout:fragment="content">
+    <div class="panel-heading">상품 상세 정보</div>
+
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label>ID</label>
+            <input class="form-control" name="id" th:value="${vo.id}" readonly="readonly"/>
+        </div>
+
+        <div class="form-group">
+            <label>상품 이름</label>
+            <input class="form-control" name="name" th:value="${vo.name}" readonly="readonly"/>
+        </div>
+
+        <div class="form-group">
+            <label>상품 가격</label>
+            <input class="form-control" name="price" th:value="${vo.price}" readonly="readonly"/>
+        </div>
+
+        <div class="form-group">
+            <label>상품 갯수</label>
+            <input class="form-control" name="cnt" th:value="${vo.quantity}" readonly="readonly"/>
+        </div>
+
+        <div class="pull-right">
+            <a th:href="@{modify(
+                id=${vo.id})}" class="btn btn-default"
+            >
+                수정하기 / 삭제하기
+            </a>
+
+            <a th:href="@{list}" class="btn btn-default">상품 리스트 돌아가기</a>
+        </div>
+
+
+    </div>
+
+    <form id ='f1'  method="get" accept-charset="UTF-8">
+</div>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var formObj = $("#f1");
+
+            $(".speedorderLink").click(function(e){
+                e.preventDefault();
+                var productNo = $(this).attr("value");
+                formObj.attr("action", [[@{'/view/order/speedorder'}]]);
+                formObj.append("<input type='hidden' name='id' value='" + productNo + "'>");
+                formObj.submit();
+            });
+        });
+    </script>
+</th:block>
+
+</html>

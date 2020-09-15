@@ -26,7 +26,7 @@ public class OrderViewController {
     }
 
     @GetMapping("/ordercomplete")
-    public String getCompelte(){
+    public String getCompelte() {
         return "/order/ordercomplete";
     }
 
