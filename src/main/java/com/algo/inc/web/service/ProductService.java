@@ -56,14 +56,14 @@ public class ProductService {
     }
 
     // 상품정보 수정하기
-    public void updateProductInfo(Long productId, ProductSaveDto productSaveDto)
+    public Long updateProductInfo(Long productId, ProductSaveDto productSaveDto)
     {
         Product product = productRepository.findById(productId).get();
         product.setName(productSaveDto.getName());
         product.setPrice(productSaveDto.getPrice());
         product.setQuantity(productSaveDto.getQuantity());
         product.setEnabled(productSaveDto.isEnabled());
-        productRepository.save(product);
+        return productRepository.save(product).getId();
     }
 
     // 상품 삭제하기

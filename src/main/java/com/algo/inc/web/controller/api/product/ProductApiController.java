@@ -38,10 +38,9 @@ public class ProductApiController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<Void> updateProductInfo(@PathVariable Long productId, @RequestBody ProductSaveDto productSaveDto)
+    public Long updateProductInfo(@PathVariable Long productId, @RequestBody ProductSaveDto productSaveDto)
     {
-        productService.updateProductInfo(productId, productSaveDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return productService.updateProductInfo(productId, productSaveDto);
     }
 
     @DeleteMapping("/{productId}")

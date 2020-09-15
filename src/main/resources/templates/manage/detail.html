@@ -5,12 +5,11 @@
 <head>
     <title>관리자 권한</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css"></link>
 </head>
 
 
 <div layout:fragment="content">
-    <div class="panel-heading">상품 상세 정보</div>
-
     <div class="panel-body">
 
         <div class="form-group">
@@ -32,6 +31,8 @@
             <label>상품 갯수</label>
             <input class="form-control" name="cnt" th:value="${vo.quantity}" readonly="readonly"/>
         </div>
+
+
 
         <div class="pull-right">
             <a th:href="@{modify(
@@ -64,5 +65,4 @@
         });
     </script>
 </th:block>
-
 </html>
