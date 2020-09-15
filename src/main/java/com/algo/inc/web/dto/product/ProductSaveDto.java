@@ -12,6 +12,4 @@ public class ProductSaveDto {
     private int price;
     private int quantity;
     private boolean enabled;
-
-    //상품 등록시 이미지를 어떻게 해야하는지?
 }

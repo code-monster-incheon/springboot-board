@@ -16,7 +16,36 @@ var productManager = (function(){
             }
         });
     };
+
+    var update = function(obj, callback)
+    {
+        console.log("update .....");
+
+        $.ajax({
+            type : 'put',
+            url:'/api/product/' + obj.productId,
+            dataType:'json',
+            data:JSON.stringify(obj),
+            contentType:"application/json",
+            success:callback
+        });
+    };
+
+    var remove = function(obj, callback)
+    {
+        console.log("remove .........");
+        $.ajax({
+            type : 'delete',
+            url : '/api/product/' + obj.productId,
+            dataType:'text',
+            contentType:"application/json",
+            success: callback,
+        });
+    };
+
     return {
-        register:register
+        register:register,
+        update: update,
+        remove:remove
     }
 })();

@@ -1,5 +1,5 @@
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{/layout/layout1}">
 
@@ -20,7 +20,7 @@
                     <div class="row-fluid">
                         <div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert"></button>
-                            <h4>상품 등록</h4>
+                            <h4>상품 정보</h4>
                         </div>
                     </div>
 
@@ -51,25 +51,24 @@
                             </table>
                         </div>
 
+                        <br>
+                        <br>
                         <div class="text-center">
-                            <button id="registerBtn" class="btn btn-success">등록</button>
-                            <button id="resetBtn" class="btn btn-warning">리셋</button>
-                            <a th:href="@{list}" class="btn btn-primary">취소</a>
+                            <button id="modifyBtn" class="btn btn-success">수정</button>
+                            <button id="delBtn" class="btn btn-danger">삭제</button>
+                            <a th:href="@{detail(id=${product.id})}" class="btn btn-primary">취소</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <hr>
+
+
     </div>
 </div>
 
-<!--/.fluid-container-->
-<script src="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
-<script src="../../Bootstrap-Admin/vendors/jquery-1.9.1.min.js"></script>
-<script src="../../Bootstrap-Admin/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
-<script src="../../Bootstrap-Admin/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
+
+<!-- end fragment -->
 
 <th:block layout:fragment="script">
     <script th:inline="javascript" th:src="@{'/js/product.js'}"></script>
@@ -77,16 +76,8 @@
 
         $(document).ready(function() {
 
-            $("#resetBtn").click(function(){
-                $("input#name").val("");
-                $("input#price").val(0);
-                $("input#cnt").val(0);
-                $("input#enabled").attr('checked', false);
-                $("input#image").val(null);
-            });
-
-            $("#registerBtn").click(function () {
-
+            $("#modifyBtn").click(function () {
+                var id = [[${product.id}]];
                 var name = $("input#name").val();
                 var price = $("input#price").val();
                 var quantity = $("input#cnt").val();
@@ -98,21 +89,31 @@
                     enabled = false;
                 }
 
-                console.log('출력', 'name : ', name, 'price : ', price, 'quantity : ', quantity, 'enabled : ', enabled);
-                var obj = {name:name, price:price, quantity:quantity, enabled:enabled}
+                console.log('출력 -> id ', id, 'name : ', name, 'price : ', price, 'quantity : ', quantity, 'enabled : ', enabled);
+                var obj = {productId:id, name:name, price:price, quantity:quantity, enabled:enabled}
 
-                productManager.register(obj, function(){
-                    alert("상품이 등록되었습니다.");
-                    $("input#name").val("");
-                    $("input#price").val(0);
-                    $("input#cnt").val(0);
-                    $("input#enabled").attr('checked', false);
-                    window.location.href = "/view/product/manage/list"
+                productManager.update(obj, function(){
+                    alert("상품 정보가 변경되었습니다.");
+                    window.location.href = "/view/product/manage/detail?id=" + id;
                 });
 
             });
 
+            $("#delBtn").click(function () {
+                if (confirm("삭제하시겠습니까?") == true){    //확인
+
+                    var id = [[${product.id}]];
+                    var obj = {productId : id};
+
+                    productManager.remove(obj, function(){
+                        window.location.href = "/view/product/manage/list"
+                    });
+                }else{}
+
+            });
+
         });
+
     </script>
 </th:block>
 </html>
