@@ -7,20 +7,62 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
-
 <div layout:fragment="content">
-    나의 주문 정보 <br><br>
+    <div align="center"> <h3> 주문서 작성 하기 </h3></div>
 
-    <label>상품 ID : </label>
-    <input name="id" th:value="${vo.id}" readonly="readonly"/> <br>
+    <div class="panel-body" style="margin-left: 300px; margin-right: 300px">
+        <div class="form-group">
+            <label>상품 ID</label>
+            <input name="id" id="id" class="form-control" th:value="${vo.id}" readonly="readonly"/>
+        </div>
 
-    <label>상품 이름 : </label>
-    <input name="name" th:value="${vo.name}" readonly="readonly"/><br>
+        <div class="form-group">
+            <label>상품 이름</label>
+            <input name="name" class="form-control" th:value="${vo.name}" readonly="readonly"/>
+        </div>
 
-    <label>상품 가격 : </label>
-    <input name="price" th:value="${vo.price}" readonly="readonly"/><br><br>
+        <div class="form-group">
+            <label>상품 가격</label>
+            <input name="price" class="form-control" th:value="${vo.price}" readonly="readonly"/>
+        </div>
 
-    주문하시겠습니까? <a type="button" th:href="@{ordercomplete}">네</a>
+        <div class="form-group">
+            <label>구매 갯수</label>
+            <input type="number" class="form-control" id="cnt" th:value="1"/> <br>
+        </div>
+
+        <div class="form-group" style="align-content: center">
+            <input class="btn btn-primary btn-lg btn-block"
+                   type="button" id="orderBtn" th:value="주문하기" th:href="@{ordercomplete}"/>
+            <input class="btn btn-default btn-lg btn-block"
+                   type="button" id="goListBtn" th:value="목록으로"/>
+        </div>
+    </div>
 </div>
 
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript" th:src="@{'/js/order.js'}"></script>
+    <script th:inline="javascript">
+
+        $(document).ready(function() {
+            $("#orderBtn").click(function () {
+                var id = $("input#id").val();
+                var cnt = $("input#cnt").val();
+                var obj = {id:id, cnt:cnt};
+
+                orderManager.register(obj, function(){
+                    alert("주문이 완료되었습니다.");
+                    $("input#cnt").val("1");
+                    window.location.href = "/view/order/ordercomplete?id=" + id + "&cnt=" + cnt;
+                });
+            });
+
+            $("#goListBtn").click(function () {
+                window.location.href = "/view/product/list"
+            });
+        });
+
+    </script>
+</th:block>
 </html>
