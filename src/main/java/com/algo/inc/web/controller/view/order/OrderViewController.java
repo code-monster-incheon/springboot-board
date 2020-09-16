@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class OrderViewController {
     private final ProductService productService;
 
     @GetMapping("/speedorder")
-    public String getOrderView(Long id, Model model)
+    public String getOrderView(@RequestParam Long id, Model model)
     {
         Product product = productService.getProductDetail(id);
         model.addAttribute("vo", product);
@@ -26,9 +28,10 @@ public class OrderViewController {
     }
 
     @GetMapping("/ordercomplete")
-    public String getCompelte() {
+    public String getComplete(@RequestParam("id") Long id, @RequestParam("cnt") int cnt, Model model) {
+        Product product = productService.getProductDetail(id);
+        model.addAttribute("vo", product);
+        model.addAttribute("cnt", cnt);
         return "/order/ordercomplete";
     }
-
-
 }

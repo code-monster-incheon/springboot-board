@@ -9,32 +9,34 @@
 
 
 <div layout:fragment="content">
-    <div class="panel-heading">상품 목록</div>
+    <div align="center"> <h3> 상품 목록 </h3></div>
 
-    <div class="panel-body" th:with="list=${productList}">
+    <div class="panel-body" style="margin-left: 200px; margin-right: 200px" th:with="list=${productList}">
         <table class="table table-striped table-bordered table-hover"
-                th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
-        <tr>
-            <th bgcolor="#00bfff" width="50">상품 ID</th>
-            <th bgcolor="#00bfff" width="200">상품 이름</th>
-            <th bgcolor="#00bfff" width="100">상품 가격</th>
-            <th bgcolor="#00bfff" width="50">상품 갯수</th>
-        </tr>
+               th:border="1" th:width="200px">
 
-        <tr class="odd gradeX"
-                th:each="product : ${productList}">
-            <td>[[${product.id}]]</td>
-            <td> <a th:href="${product.id}" class="productLink">[[${product.name}]]</a> </td>
-            <td>[[${product.price}]]</td>
-            <td>[[${product.quantity}]]</td>
-        </tr>
+            <thead>
+                <tr>
+                    <th bgcolor="#add8e6" width="50px">상품 ID</th>
+                    <th bgcolor="#add8e6" width="200px">상품 이름</th>
+                    <th bgcolor="#add8e6" width="100px">상품 가격</th>
+                    <th bgcolor="#add8e6" width="50px">상품 갯수</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="odd gradeX" th:each="product : ${productList}">
+                    <td>[[${product.id}]]</td>
+                    <td> <a th:href="${product.id}" class="productLink">[[${product.name}]]</a> </td>
+                    <td>[[${product.price}]]</td>
+                    <td>[[${product.quantity}]]</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
-
     <form id ='f1' th:action="@{list}" method="get" accept-charset="UTF-8">
     </form>
-
 </div>
 
 
