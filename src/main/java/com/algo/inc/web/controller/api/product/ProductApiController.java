@@ -1,5 +1,6 @@
 package com.algo.inc.web.controller.api.product;
 
+import com.algo.inc.domain.product.ProductType;
 import com.algo.inc.web.dto.product.ProductSaveDto;
 import com.algo.inc.web.dto.product.ProductResponseDto;
 import com.algo.inc.web.service.ProductService;
@@ -28,13 +29,13 @@ public class ProductApiController {
     @GetMapping("/getProductList")
     public List<ProductResponseDto> getProductList()
     {
-        return productService.getProductList("SELL");
+        return productService.getProductList(ProductType.SELL.getType());
     }
 
     @GetMapping("/lists")
     public List<ProductResponseDto> getLists()
     {
-        return productService.getProductList("ALL");
+        return productService.getProductList(ProductType.ALL.getType());
     }
 
     @PutMapping("/{id}")

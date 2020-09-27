@@ -5,57 +5,67 @@
 <head>
     <title>상품 목록</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        div.shoplist {
+            position: center;
+            border: solid 1px grey;
+            margin: auto;
+        }
+
+        div.inner_shop_item {
+            border: 1px solid darkkhaki;
+            float: left;
+            width: 30%;
+        }
+
+        .outer_shop_list {
+            width: 90%;
+            position: center;
+        }
+    </style>
 </head>
 
 
 <div layout:fragment="content">
-    <div align="center"> <h3> 상품 목록 </h3></div>
+    <div style="position: center"><h3> 상품 목록 </h3></div>
 
-    <div class="panel-body" style="margin-left: 200px; margin-right: 200px" th:with="list=${productList}">
-        <table class="table table-striped table-bordered table-hover"
-               th:border="1" th:width="200px">
+    <div class="panel-body" style="margin-left: 300px; margin-right: 300px">
 
-            <thead>
-                <tr>
-                    <th bgcolor="#add8e6" width="50px">상품 ID</th>
-                    <th bgcolor="#add8e6" width="200px">상품 이름</th>
-                    <th bgcolor="#add8e6" width="100px">상품 가격</th>
-                    <th bgcolor="#add8e6" width="50px">상품 갯수</th>
-                </tr>
-            </thead>
+        <div class="outer_shop_list">
+            <div class="shoplist" th:with="list=${productList}">
+                <div class="inner_shop_item" th:each="product : ${productList}">
+                    <div>
+                    <img th:src="@{/image/macbook.png}" style="max-width: 90%; height: auto">
+                    </div>
+                    <hr style="border:solid 1px black"/>
+                    <div>[[${product.id}]]</div>
+                    <div><a th:href="${product.id}" class="productLink">[[${product.name}]]</a></div>
+                    <div>[[${product.price}]]</div>
+                    <div>[[${product.quantity}]]</div>
+                </div>
 
-            <tbody>
-                <tr class="odd gradeX" th:each="product : ${productList}">
-                    <td>[[${product.id}]]</td>
-                    <td> <a th:href="${product.id}" class="productLink">[[${product.name}]]</a> </td>
-                    <td>[[${product.price}]]</td>
-                    <td>[[${product.quantity}]]</td>
-                </tr>
-            </tbody>
-        </table>
+            </div>
+        </div>
+        <form id='f1' th:action="@{list}" method="get" accept-charset="UTF-8">
+        </form>
     </div>
 
-    <form id ='f1' th:action="@{list}" method="get" accept-charset="UTF-8">
-    </form>
 </div>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            $(document).ready(function () {
+                var formObj = $("#f1");
 
-
-
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-        $(document).ready(function(){
-            var formObj = $("#f1");
-
-            $(".productLink").click(function(e){
-                e.preventDefault();
-                var productNo = $(this).attr("href");
-                formObj.attr("action", [[@{'/view/product/detail'}]]);
-                formObj.append("<input type='hidden' name='id' value='" + productNo + "'>");
-                formObj.submit();
+                $(".productLink").click(function (e) {
+                    e.preventDefault();
+                    var productNo = $(this).attr("href");
+                    formObj.attr("action", [[@{'/view/product/detail'}]]);
+                    formObj.append("<input type='hidden' name='id' value='" + productNo + "'>");
+                    formObj.submit();
+                });
             });
-        });
-    </script>
-</th:block>
+        </script>
+    </th:block>
 
 
 </html>
